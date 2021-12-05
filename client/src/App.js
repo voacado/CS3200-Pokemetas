@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import SingleTeamEval from './pages/SingleTeamEval';
 import NotFound from './pages/NotFound';
 import Navbar from './components/navbar/Navbar'
+import './index.css'
 
 function App() {
   return (
@@ -19,25 +20,5 @@ function App() {
     </div>
   );
 }
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
 
 export default App;

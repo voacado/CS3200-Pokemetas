@@ -3,7 +3,7 @@ import React from 'react';
 const NotFound = props => {
     return (
         <div>
-            <p>You took a wrong turn, mate.</p>
+            <p>Error! You've come across an invalid page.</p>
         </div>
     );
 };

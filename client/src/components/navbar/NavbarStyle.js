@@ -52,8 +52,8 @@ export const NavMenu = styled.div`
   /* margin-right: 24px; */
 
   /* Third Nav */
-  /* width: 100vw;
-  white-space: nowrap; */
+  width: 83vw;
+  // white-space: nowrap;
 
   @media screen and (max-width: 768px) {
     display: none;
@@ -76,7 +76,7 @@ export const NavBtn = styled.nav`
 
 export const NavBtnLink = styled(Link)`
   border-radius: 4px;
-  background: #256ce1;
+  background: #4470BD;
   padding: 10px 22px;
   color: #fff;
   outline: none;

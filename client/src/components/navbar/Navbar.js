@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReactComponent as PokeballSvg } from '../../images/pokeball.svg';
+import { ReactComponent as PokeMetasSvg } from '../../images/pokemetas.svg';
 import {
   Nav,
   NavLink,
@@ -14,9 +14,9 @@ const Navbar = () => {
     <>
       <Nav>
         <NavLink to='/'>
-          <PokeballSvg 
-          height="75px"
-          width="75px" />
+          <PokeMetasSvg 
+          height="85px"
+          width="150px" />
         </NavLink>
         <Bars />
         <NavMenu>
@@ -36,7 +36,7 @@ const Navbar = () => {
           {/* <NavBtnLink to='/sign-in'>Sign In</NavBtnLink> */}
         </NavMenu>
         <NavBtn>
-          <NavBtnLink to='/signup'>Sign Up</NavBtnLink>
+          {/* <NavBtnLink to='/signup'>Sign Up</NavBtnLink> */}
           <NavBtnLink to='/signin'>Sign In</NavBtnLink>
         </NavBtn>
       </Nav>
