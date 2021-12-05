@@ -6,7 +6,8 @@ https://www.freecodecamp.org/news/how-to-create-a-react-app-with-a-node-backend-
 
 Additional Packages
 - react-router-dom
-- react-icons
+- -- save react-icons
+- npm install --save styled-components
 
 Run Locally:
 (updates locally)
@@ -25,5 +26,3 @@ Push:
 git add -A
 git commit -m ""
 git push heroku HEAD:master
-
-Test heroku

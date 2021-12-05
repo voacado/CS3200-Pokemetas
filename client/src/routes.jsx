@@ -10,11 +10,9 @@ function Routes() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" children={<Dashboard />}/>
-                <Route path="/home" children={<Home />}/>
-                <Route path="/single-team-eval" children={<SingleTeamEval />}/>
-                {/* <Route path="/page-3" children={<Page3 />}/> */}
-                <Route component={NotFound}/>
+                <Route path="/" element={<Home />} /> 
+                <Route path="/single-team-eval" element={<SingleTeamEval />}/>
+                <Route element={<NotFound />}/>
             </Routes>
         </BrowserRouter>
     )
