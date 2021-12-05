@@ -1,0 +1,23 @@
+{
+  "name": "cs3200-pokemetas",
+  "version": "1.0.0",
+  "description": "Website for the Pokemetas site (Database Design Project)",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AntVo2448/CS3200-Pokemetas.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AntVo2448/CS3200-Pokemetas/issues"
+  },
+  "homepage": "https://github.com/AntVo2448/CS3200-Pokemetas#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
