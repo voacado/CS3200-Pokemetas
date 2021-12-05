@@ -25,3 +25,5 @@ Push:
 git add -A
 git commit -m ""
 git push heroku HEAD:master
+
+Test heroku
