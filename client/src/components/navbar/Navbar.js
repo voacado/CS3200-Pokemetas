@@ -1,11 +1,12 @@
 import React from 'react';
+import { ReactComponent as PokeballSvg } from '../../images/pokeball.svg';
 import {
   Nav,
   NavLink,
   Bars,
   NavMenu,
   NavBtn,
-  NavBtnLink
+  NavBtnLink,
 } from './NavbarStyle';
 
 const Navbar = () => {
@@ -13,7 +14,9 @@ const Navbar = () => {
     <>
       <Nav>
         <NavLink to='/'>
-          <img src={require('../../images/pokeball.svg')} alt='logo' />
+          <PokeballSvg 
+          height="75px"
+          width="75px" />
         </NavLink>
         <Bars />
         <NavMenu>
