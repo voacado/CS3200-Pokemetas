@@ -52,12 +52,11 @@ export const NavLink = styled(Link)`
   // }
 
   &:hover {
-    color: #9fb7e8;
-    // text-decoration: underline;
-    // text-decoration-color: #FBDD00;
-    // border-bottom: 1px solid #FBDD00;
-    // box-shadow: 0 4px 0 -2px #5CC7A8;
-    box-shadow: 0 4px 0 -2px #4370D0;
+    // color: #9fb7e8;
+    // box-shadow: 0 4px 0 -2px #4370D0;
+
+    color: #369cb8;
+    box-shadow: 0 4px 0 -2px #369cb8;
 
   }
 `;
@@ -119,8 +118,8 @@ export const NavBtnLink = styled(Link)`
   transition: all 0.2s ease-in-out;
   text-decoration: none;
 
-  // Inverts color of icon
-  filter: grayscale(1) invert(1);
+  height: auto;
+  width: auto;
 
   /* Second Nav */
   margin-left: 24px;
@@ -130,6 +129,6 @@ export const NavBtnLink = styled(Link)`
     // background: #fff;
     // color: #010606;
     transform: scale(1.3);
-    filter: grayscale(0) invert(0) sepia(100%) hue-rotate(270deg) saturate(100%);
+    // filter: grayscale(0) invert(0) sepia(100%) hue-rotate(270deg) saturate(100%);
   }
 `;
