@@ -3,6 +3,7 @@ import { ReactComponent as PokeMetasSvg } from '../../images/pokemetas.svg';
 import {
   Nav,
   NavLink,
+  NavLinkIcon,
   Bars,
   NavMenu,
   NavBtn,
@@ -13,11 +14,11 @@ const Navbar = () => {
   return (
     <>
       <Nav>
-        <NavLink to='/'>
+        <NavLinkIcon to='/'>
           <PokeMetasSvg 
           height="85px"
           width="150px" />
-        </NavLink>
+        </NavLinkIcon>
         <Bars />
         <NavMenu>
           <NavLink to='/about' activeStyle>
@@ -36,8 +37,16 @@ const Navbar = () => {
           {/* <NavBtnLink to='/sign-in'>Sign In</NavBtnLink> */}
         </NavMenu>
         <NavBtn>
+
           {/* <NavBtnLink to='/signup'>Sign Up</NavBtnLink> */}
-          <NavBtnLink to='/signin'>Sign In</NavBtnLink>
+          {/* <NavBtnLink to='/signin'>Sign In</NavBtnLink> */}
+          {/* <img src="https://img.icons8.com/carbon-copy/50/000000/test-account.png"/> */}
+          
+
+          <NavBtnLink to='/'>
+          <img src="https://img.icons8.com/carbon-copy/50/000000/test-account.png"/>
+        </NavBtnLink>
+
         </NavBtn>
       </Nav>
     </>
