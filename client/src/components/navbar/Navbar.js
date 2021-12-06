@@ -1,5 +1,8 @@
 import React from 'react';
 import { ReactComponent as PokeMetasSvg } from '../../images/pokemetas.svg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+
 import {
   Nav,
   NavLink,
@@ -44,7 +47,9 @@ const Navbar = () => {
           
 
           <NavBtnLink to='/'>
-          <img src="https://img.icons8.com/carbon-copy/50/000000/test-account.png"/>
+          {/* <img src="https://img.icons8.com/carbon-copy/50/000000/test-account.png"/> */}
+          {/* <i className="fas fa-heart"></i>; */}
+          <FontAwesomeIcon icon={ faUserCircle } size="2x"/>
         </NavBtnLink>
 
         </NavBtn>

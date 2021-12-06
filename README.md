@@ -8,6 +8,9 @@ Additional Packages
 - react-router-dom
 - -- save react-icons
 - npm install --save styled-components
+- 
+- npm i -S @fortawesome/fontawesome-svg-core @fortawesome/react-fontawesome
+- npm i -S @fortawesome/free-regular-svg-icons
 
 Run Locally:
 (updates locally)
