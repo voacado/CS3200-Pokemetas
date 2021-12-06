@@ -1,11 +1,12 @@
 import React from 'react';
 
-const NotFound = props => {
+function NotFound(props) {
     return (
         <div>
-            <p>Error! You've come across an invalid page.</p>
+            <h1>Home</h1>
+            <p>Rixuan Zheng too good!</p>
         </div>
     );
-};
+}
 
 export default NotFound;

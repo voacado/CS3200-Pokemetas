@@ -1,11 +1,13 @@
 import './App.css';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import './index.css';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+
 import Home from './pages/Home';
 import SingleTeamEval from './pages/SingleTeamEval';
 import NotFound from './pages/NotFound';
-import Navbar from './components/navbar/Navbar';
 import Login from './pages/Login';
-import './index.css';
+
+import Navbar from './components/navbar/Navbar';
 
 function App() {
   return (
@@ -13,10 +15,14 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
+          <Route exact path="/" element={<Home />} /> 
           <Route exact path="/home" element={<Home />} /> 
           <Route exact path="/single-team-eval" element={<SingleTeamEval />}/>
           <Route exact path="/login" element={<Login />}/>
           <Route element={<NotFound />}/>
+
+          <Route path="/404" element={<NotFound />} />
+          <Route path="*" element={<Navigate replace to="/404" />} />
         </Routes>
       </Router>
     </div>
