@@ -16,31 +16,23 @@ function SingleTeamEval(props) {
         });
     };
     // 3. Create a useEffect hook to update pokemonSpecies
+    // also sets background properties
     useEffect(() => {
         getPokemonSpecies();
+        document.body.style.backgroundImage = `url(${background})`;
+        document.body.style.backgroundSize = "cover";
+        document.body.style.backgroundPosition = "center";
+        document.body.style.backgroundRepeat = "no-repeat";
+        document.body.style.backgroundAttachment = "fixed";
+
+        return () => {
+            document.body.style.backgroundImage = null;
+        };
     }, []);
 
-    console.log(pokemonSpecies);
-
-    const pokeNames = [];
-    pokemonSpecies.forEach(element => pokeNames.push(element.poke_name))
-
-
-
     return (
-        <div style={{
-            // backgroundImage: `url(${background})`
-        }}>
-            <SearchBar placeholder="Enter Pokemon Name" data={pokemonSpecies} />
-
-        {/* {
-        pokemonSpecies.map((post) => (
-            <div key={post.id}>
-                <p>{post.poke_name}</p>
-            </div>
-          ))
-        } */}
-
+        <div className="single-team-eval">
+        <SearchBar placeholder="Enter Pokemon Name" data={pokemonSpecies} />
         </div>
     );
 }
