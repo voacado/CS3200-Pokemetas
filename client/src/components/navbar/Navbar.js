@@ -1,7 +1,7 @@
 import React from 'react';
 import { ReactComponent as PokeMetasSvg } from '../../images/pokemetas.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { faUserCircle } from '@fortawesome/free-regular-svg-icons';
 
 import {
   Nav,
