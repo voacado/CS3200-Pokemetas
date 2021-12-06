@@ -38,15 +38,27 @@ export const NavLink = styled(Link)`
   align-items: center;
   text-decoration: none;
   padding: 0 1rem;
-  height: 100%;
+  height: 50%;
   cursor: pointer;
 
-  &.active {
-    color: #15cdfc;
-  }
+  -moz-transition: all .2s ease-in;
+  -o-transition: all .2s ease-in;
+  -webkit-transition: all .2s ease-in;
+  transition: all .2s ease-in;
+
+  // &.active {
+  //   // color: #15cdfc;
+  //   color: #4370D0;
+  // }
 
   &:hover {
-    // transform: scale(1.1);
+    color: #9fb7e8;
+    // text-decoration: underline;
+    // text-decoration-color: #FBDD00;
+    // border-bottom: 1px solid #FBDD00;
+    // box-shadow: 0 4px 0 -2px #5CC7A8;
+    box-shadow: 0 4px 0 -2px #4370D0;
+
   }
 `;
 
@@ -118,5 +130,6 @@ export const NavBtnLink = styled(Link)`
     // background: #fff;
     // color: #010606;
     transform: scale(1.3);
+    filter: grayscale(0) invert(0) sepia(100%) hue-rotate(270deg) saturate(100%);
   }
 `;
