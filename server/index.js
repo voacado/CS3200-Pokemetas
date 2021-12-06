@@ -5,12 +5,15 @@ const express = require("express");
 const mysql = require('mysql');
 const { response } = require('express');
 const cors = require('cors')
-const jwt = require("jsonwebtoken");
+// const jwt = require("jsonwebtoken");
 
 const PORT = process.env.PORT || 3001;
 
 const app = express();
+app.use(cors());
 
+
+// MySQL connection
 let connection = mysql.createConnection(
   process.env.CLEARDB_DATABASE_URL
 );
@@ -19,10 +22,10 @@ connection.connect(function(err) {
   console.log("Connected!");
 });
 
-app.use(cors());
+// Export the data
+module.exports = connection;
 
-// module.exports = connection;
-
+// Example Query
 app.get('/reviews', (req, res) => {
   connection.query('SELECT * FROM pokemon_species', function (err, result) {
     if (err) throw err;
@@ -30,9 +33,7 @@ app.get('/reviews', (req, res) => {
   });
 });
 
-
-
-connection.end()
+// connection.end()
 
 // connection.query('SELECT * FROM heroku_db4deb156bbb8bb.pokemon_species', function (error, results, fields) {
 //   if (error) {
