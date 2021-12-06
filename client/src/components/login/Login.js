@@ -2,25 +2,23 @@ import React from 'react';
 import {
     LoginDiv,
     Form,
+    Body,
+    Input,
+    Button,
   } from './LoginStyle';
 
 const Login = () => {
   return(
+    <Body>
     <LoginDiv>
-    <Form>
-      <label>
-        <p>Username</p>
-        <input type="text" />
-      </label>
-      <label>
-        <p>Password</p>
-        <input type="password" />
-      </label>
-      <div>
-        <button type="submit">Submit</button>
-      </div>
+    <h1>Log In</h1>
+    <Form autocomplete="off">
+        <Input placeholder="Username" type="text" id="username"></Input>
+        <Input placeholder="Password" type="password" id="password"></Input>
+        <Button id="submit">Login</Button>
     </Form>
     </LoginDiv>
+    </Body>
   );
 };
 
