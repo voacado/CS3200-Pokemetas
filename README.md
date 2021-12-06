@@ -11,10 +11,16 @@ Additional Packages
 - 
 - npm i -S @fortawesome/fontawesome-svg-core @fortawesome/react-fontawesome
 - npm i -S @fortawesome/free-regular-svg-icons
+- npm i -S @fortawesome/free-solid-svg-icons
+
+
+
+- cors
 
 Run Locally:
 (updates locally)
 npm start in /client
+npm run dev in root (app)
 
 OR
 

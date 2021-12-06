@@ -24,16 +24,16 @@ const Navbar = () => {
         </NavLinkIcon>
         <Bars />
         <NavMenu>
-          <NavLink to='/about' activeStyle>
+          <NavLink to='/about' activestyle="false">
             About
           </NavLink>
-          <NavLink to='/single-team-eval' activeStyle>
+          <NavLink to='/single-team-eval' activestyle="true">
             Team
           </NavLink>
-          <NavLink to='/compare-teams' activeStyle>
+          <NavLink to='/compare-teams' activestyle="true">
             Compare Teams
           </NavLink>
-          <NavLink to='/search-bar' activeStyle>
+          <NavLink to='/search-bar' activestyle="true">
             (Search Bar goes here)
           </NavLink>
           {/* Second Nav */}

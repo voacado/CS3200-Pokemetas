@@ -47,7 +47,7 @@ export const NavLink = styled(Link)`
   transition: all .2s ease-in;
 
   // &.active {
-  //   // color: #15cdfc;
+  //   color: #15cdfc;
   //   color: #4370D0;
   // }
 
