@@ -11,17 +11,8 @@ const PORT = process.env.PORT || 3001;
 
 const app = express();
 
-// Connect to MySQL database
-//  mysql://b2cbf2620deadc:3242c509@us-cdbr-east-04.cleardb.com/heroku_db4deb156bbb8bb?reconnect=true
-// let connection = mysql.createConnection({
-//   host: 'us-cdbr-east-04.cleardb.com',
-//   user: 'b2cbf2620deadc',
-//   password: '3242c509',
-//   database: 'heroku_db4deb156bbb8bb'
-// });
-
 let connection = mysql.createConnection(
-  'mysql://b2cbf2620deadc:3242c509@us-cdbr-east-04.cleardb.com/heroku_db4deb156bbb8bb?reconnect=true'
+  process.env.CLEARDB_DATABASE_URL
 );
 connection.connect(function(err) {
   if (err) throw err;
