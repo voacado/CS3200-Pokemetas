@@ -4,7 +4,7 @@ import Home from './pages/Home';
 import SingleTeamEval from './pages/SingleTeamEval';
 import NotFound from './pages/NotFound';
 import Navbar from './components/navbar/Navbar';
-import Login from './components/login/Login';
+import Login from './pages/Login';
 import './index.css';
 
 function App() {
@@ -12,10 +12,10 @@ function App() {
     <div className='App'>
       <Router>
         <Navbar />
-        <Login />
         <Routes>
           <Route exact path="/home" element={<Home />} /> 
           <Route exact path="/single-team-eval" element={<SingleTeamEval />}/>
+          <Route exact path="/login" element={<Login />}/>
           <Route element={<NotFound />}/>
         </Routes>
       </Router>

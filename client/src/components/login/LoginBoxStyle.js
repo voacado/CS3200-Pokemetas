@@ -8,23 +8,20 @@ export const LoginDiv = styled.div`
     @media screen and (max-width: 480px) {
         padding: 60px 0;
     }
+`;
 
-    &.h1 {
-        margin: 0 0 20px;
-        line-height: 1;
-        color: #44c4e7;
-        font-size: 18px;
-        font-weight: 400;
-    }
+export const H1 = styled.h1`
+    margin: 0 0 20px;   
+    font-size: 24px;
 `;
 
 export const Form = styled.form`
-    position: absolute;
+    position: flex;
     top: 50%;
     left: 50%;
     background: #fff;
     width: 285px;
-    margin: -140px 0 0 -182px;
+    margin: 100px 0 0 0;
     padding: 40px;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
 `;
@@ -39,7 +36,6 @@ export const Body = styled.body`
         position: fixed;
         top: 0;
         left: 0;
-        background: #44c4e7;
         background: rgba(0, 0, 0, 0);
         width: 100%;
         height: 100%;
