@@ -15,6 +15,11 @@ export const H1 = styled.h1`
     font-size: 24px;
 `;
 
+export const P = styled.p`   
+    font-size: 12px;
+    align: left;
+`;
+
 export const Form = styled.form`
     position: flex;
     top: 50%;
@@ -24,22 +29,6 @@ export const Form = styled.form`
     margin: 100px 0 0 0;
     padding: 40px;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
-`;
-
-export const Body = styled.body`
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-
-    &:before {
-        z-index: -1;
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        background: rgba(0, 0, 0, 0);
-        width: 100%;
-        height: 100%;
-    }
 `;
 
 export const Input = styled.input`
