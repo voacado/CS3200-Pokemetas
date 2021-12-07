@@ -3,6 +3,7 @@ import React from 'react';
 import { useState, useEffect } from "react";
 import axios from "axios";
 import SearchBar from '../components/search_bar/SearchBar';
+import PokeList from '../components/poke_list/PokeList';
 import background from "../images/bulbasaurBG.png";
 
 function SingleTeamEval(props) {
@@ -33,6 +34,7 @@ function SingleTeamEval(props) {
     return (
         <div className="single-team-eval">
         <SearchBar placeholder="Enter Pokemon Name" data={pokemonSpecies} />
+        <PokeList />
         </div>
     );
 }

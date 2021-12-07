@@ -1,5 +1,5 @@
 .searchInputs {
-  margin-top: 105px;
+  margin-top: 75px;
   display: flex;
 }
 
@@ -27,6 +27,7 @@
   background-color: white;
   display: grid;
   place-items: center;
+  cursor: pointer;
 }
 
 input:focus {
@@ -39,7 +40,7 @@ input:focus {
 
 .dataResult {
   margin-top: 5px;
-  width: 300px;
+  width: 380px;
   height: 200px;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -57,19 +58,21 @@ input:focus {
   display: flex;
   align-items: center;
   color: black;
+  background-color: white;
 }
 
 .dataItem p {
   margin-left: 10px;
+  font-size: 18px;
 }
-a {
+button {
   text-decoration: none;
 }
 
-a:hover {
+button:hover {
   background-color: lightgrey;
 }
 
 #clearBtn {
-  cursor: pointer;
+  pointer-events: none;
 }

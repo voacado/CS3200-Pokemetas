@@ -1,4 +1,3 @@
-const { ViewModuleSharp } = require("@mui/icons-material");
 const {sign, verify} = require("jsonwebtoken");
 
 const createTokens = (userID) => {

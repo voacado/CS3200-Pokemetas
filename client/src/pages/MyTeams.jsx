@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import LoginBox from '../components/login/LoginBox';
 
 function MyTeams(props) {
-    const [token, setToken] = useState();
+    const [token, setToken] = useState([]);
 
     if(!token) {
         return <LoginBox setToken={setToken} />
