@@ -18,28 +18,31 @@ function PokeList({ data }) {
    * Add element to list of pokemon
    * @param {*} e 
    */
-  function handleAdd(e) {
-    if (!(list.length >= 6)) {
-      const name = e.target.getAttribute("name")
+  function handleAdd(name) {
+    if (list.length < 6) {
+      // const name = e.target.getAttribute("name");
+      // console.log(e)
+      // console.log(name);
       const newList = list.concat(name);
       setList(newList);
     }
   }
 
   /**
-   * Remove element to list of pokemon
-   * @param {*} e 
+   * Remove element from list of pokemon (by index to avoid duplicate deletion)
+   * @param {Integer} listIndex
    */
-  function handleRemove(e) {
-    if (!(list.length <= 0)) {
-      const name = e.target.getAttribute("name")
-      setList(list.filter(item => item !== name))
-    }
+  function handleRemove(listIndex) {
+    const newList = list
+    var leftList = newList.slice(0, listIndex)
+    var rightList = newList.slice(listIndex + 1, newList.length)
+    var combinedList = leftList.concat(rightList)
+    setList(combinedList)
   }
 
   /**
    * Given a poke_name, return the object detailing the Pokemon (from the database)
-   * @param {*} name 
+   * @param {String} name 
    */
   function getPokeObj(name) {
     data.forEach(element => {
@@ -56,12 +59,14 @@ function PokeList({ data }) {
       <div className="poke-list-overall">
         {list.length !== 0 && (
           <div className="poke-list">
-            {list.map((pokemon) => {
+            {list.map((pokemon, listIndex) => {
               return <div className="indiv-item">
                 <li className="indiv-item">
-                  {getPokeObj(pokemon)}
+                  {/* {getPokeObj(pokemon[index])} */}
+                  {/* {console.log(index)} */}
+                  {/* {console.log(list)} */}
                   {pokemon}
-                  <div className="remove-icon" name={pokemon} onClick={handleRemove}>
+                  <div className="remove-icon" onClick={() => handleRemove(listIndex)}>
                     <FontAwesomeIcon icon={faTrash} size="1x" id="clearBtn" />
                   </div>
                 </li>

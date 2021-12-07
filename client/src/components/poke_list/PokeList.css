@@ -1,10 +1,11 @@
 .poke-list-overall {
-  /* margin-top: 50px; */
+  margin-top: 25px;
   display: absolute;
-  position: absolute;
-  left: 0px;
-  top: 250px;
+  /* position: absolute; */
+  /* left: 0px; */
+  /* top: 250px; */
   z-index: 1;
+  color:black;
 }
 
 .poke-list {
@@ -32,7 +33,7 @@
   text-align: left;
 
   width: 100%;
-  height: 70px;
+  height: 40px;
   display: flex;
   align-items: center;
 }

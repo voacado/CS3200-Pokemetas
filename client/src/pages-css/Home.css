@@ -1,5 +1,5 @@
-.single-team-eval {
-  background-image: url('../images/wallpapers/bulbasaurBG.png');
+.home {
+  background-image: url('../images/wallpapers/kantoStarters.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -8,4 +8,6 @@
   position: absolute;
   width: 100vw;
   height: calc(100vh - 85px);
+
+  color: white;
 }

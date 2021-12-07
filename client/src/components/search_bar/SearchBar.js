@@ -58,7 +58,7 @@ function SearchBar({placeholder, data, props}) {
       <div className="dataResult">
         {/* Show data on site (limit best 15 results) */}
         {filteredData.slice(0, 15).map((value, key) => {
-          return <button name={value.poke_name} className="dataItem" onClick={props} >
+          return <button className="dataItem" onClick={() => props(value.poke_name)} >
             <p> {value.poke_name} </p> 
           </button>
         })}

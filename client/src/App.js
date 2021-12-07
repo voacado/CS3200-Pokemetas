@@ -8,6 +8,7 @@ import SingleTeamEval from './pages/SingleTeamEval';
 import NotFound from './pages/NotFound';
 import Login from './pages/Login';
 import MyTeams from './pages/MyTeams';
+import About from './pages/About';
 
 import Navbar from './components/navbar/Navbar';
 
@@ -20,6 +21,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Home />} /> 
           <Route exact path="/home" element={<Home />} /> 
+          <Route exact path="/about" element={<About />} />
           <Route exact path="/single-team-eval" element={<SingleTeamEval />}/>
           <Route exact path="/login" element={<Login />}/>
           <Route exact path="/my-teams" element={<MyTeams />}/>
