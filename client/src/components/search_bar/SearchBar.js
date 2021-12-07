@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import "./SearchBar.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+
 
 function SearchBar({placeholder, data}) {
 
@@ -37,7 +38,7 @@ function SearchBar({placeholder, data}) {
     <div className="search">
       <div className="searchInputs">
         <input type="text" placeholder={placeholder} value={wordEntered} onChange={handleFilter}/>
-        <div className="searchIcon">
+        <div className="searchIcon" onClick={clearInput}>
           {wordEntered.length === 0 ? 
           (<FontAwesomeIcon icon={ faSearch } size="1x"/>) :
           (<FontAwesomeIcon icon={ faTimes } size="1x" id="clearBtn" onClick={clearInput}/>)}
@@ -49,9 +50,9 @@ function SearchBar({placeholder, data}) {
       <div className="dataResult">
         {/* Show data on site (limit best 15 results) */}
         {filteredData.slice(0, 15).map((value, key) => {
-          return <a className="dataItem"> 
+          return <button name={value.poke_name} className="dataItem"> 
             <p> {value.poke_name} </p> 
-          </a>
+          </button>
         })}
       </div>
     )}
