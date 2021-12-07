@@ -11,8 +11,8 @@ export default function useToken() {
 
   const [token, setToken] = useState(getToken());
 
-  const saveToken = userToken => {
-    setToken(userToken);
+  const saveToken = () => {
+    setToken(getToken());
   };
 
   return {

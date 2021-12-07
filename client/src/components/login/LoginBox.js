@@ -9,16 +9,16 @@ import {
     Button,
   } from './LoginBoxStyle';
 
-  async function loginUser(username, password) {
-    return fetch('http://localhost:3000/loginAPI', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ username, password })
-    })
-      .then(data => data.json())
-   }
+async function loginUser(username, password) {
+  return fetch(`http://localhost:3000/loginAPI`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ username, password })
+  })
+    .then(data => data.json())
+  }
 
 export default function LoginBox( { setToken } ) {
   const [username, setUserName] = useState("");
