@@ -33,8 +33,8 @@ function SingleTeamEval(props) {
 
     return (
         <div className="single-team-eval">
-        <SearchBar placeholder="Enter Pokemon Name" data={pokemonSpecies} />
-        <PokeList />
+        {/* <SearchBar placeholder="Enter Pokemon Name" data={pokemonSpecies} /> */}
+        <PokeList data={pokemonSpecies} />
         </div>
     );
 }

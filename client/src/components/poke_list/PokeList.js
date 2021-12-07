@@ -2,15 +2,16 @@ import React from 'react'
 import "./PokeList.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import SearchBar from '../search_bar/SearchBar';
 
-function PokeList() {
+function PokeList({data}) {
 
-  const [list, setList] = React.useState(["hi", "bye", "test"]);
+  const [list, setList] = React.useState([]);
 
   function handleAdd(e) {
     if (!(list.length >= 6)) {
       const name = e.target.getAttribute("name")
-      const newList = list.concat({ name });
+      const newList = list.concat(name);
       setList(newList);
     }
   }
@@ -22,21 +23,36 @@ function PokeList() {
     }
   }
 
-  return (
-    <div className="poke-list-overall">
-      <div className="poke-list">
+  function getPokeObj(name) {
+    data.forEach(element => {
+      if(element.poke_name === name) {
+        console.log(element);
+      }
+    });
+  }
 
-        {list.map((pokemon) => {
-          return <div className="indiv-item">
-            <li className="indiv-item">
-              {pokemon}
-              <div className="remove-icon" name={ pokemon } onClick={ handleRemove }>
-                  <FontAwesomeIcon icon={ faTrash } size="1x" id="clearBtn"/>
-              </div>
-            </li>
-          </div>
-        })}
-        
+  return (
+    <div>
+      <button name="testadd" onClick={handleAdd}> Test Add </button>
+      {/* <SearchBar placeholder="Enter Pokemon Name" data={data} props={() => handleAdd()} /> */}
+      <SearchBar placeholder="Enter Pokemon Name" data={data} props={handleAdd} />
+      {/* <SearchBar placeholder="Enter Pokemon Name" data={data} props={"hello"} /> */}
+      <div className="poke-list-overall">
+        <div className="poke-list">
+
+          {list.map((pokemon) => {
+            return <div className="indiv-item">
+              <li className="indiv-item">
+                {getPokeObj(pokemon)}
+                {pokemon}
+                <div className="remove-icon" name={ pokemon } onClick={ handleRemove }>
+                    <FontAwesomeIcon icon={ faTrash } size="1x" id="clearBtn"/>
+                </div>
+              </li>
+            </div>
+          })}
+
+        </div>
       </div>
     </div>
   )
