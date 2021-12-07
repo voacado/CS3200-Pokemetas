@@ -10,7 +10,7 @@ import {
   } from './LoginBoxStyle';
 
   async function loginUser(username, password) {
-    return fetch('http://localhost:3001/loginAPI', {
+    return fetch('http://localhost:3000/loginAPI', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

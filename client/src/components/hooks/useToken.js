@@ -6,7 +6,7 @@ export default function useToken() {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop().split(';').shift();
-    else return "undefined";
+    else return "";
   };
 
   const [token, setToken] = useState(getToken());
