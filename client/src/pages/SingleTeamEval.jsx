@@ -1,12 +1,9 @@
-import React from 'react';
-
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import axios from "axios";
-import SearchBar from '../components/search_bar/SearchBar';
 import PokeList from '../components/poke_list/PokeList';
-import background from "../images/bulbasaurBG.png";
+import '../pages-css/SingleTeamEval.css';
 
-function SingleTeamEval(props) {
+function SingleTeamEval() {
 
     // 1. Initialize an array called pokemonSpecies, which contains all pokemonSpecies data
     const [pokemonSpecies, setPokemonSpecies] = useState([]);
@@ -17,24 +14,15 @@ function SingleTeamEval(props) {
         });
     };
     // 3. Create a useEffect hook to update pokemonSpecies
-    // also sets background properties
     useEffect(() => {
         getPokemonSpecies();
-        document.body.style.backgroundImage = `url(${background})`;
-        document.body.style.backgroundSize = "cover";
-        document.body.style.backgroundPosition = "center";
-        document.body.style.backgroundRepeat = "no-repeat";
-        document.body.style.backgroundAttachment = "fixed";
-
-        return () => {
-            document.body.style.backgroundImage = null;
-        };
     }, []);
 
     return (
         <div className="single-team-eval">
-        {/* <SearchBar placeholder="Enter Pokemon Name" data={pokemonSpecies} /> */}
-        <PokeList data={pokemonSpecies} />
+            <div className="ste-container">
+                <PokeList data={pokemonSpecies} />
+            </div>
         </div>
     );
 }

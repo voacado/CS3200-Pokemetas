@@ -1,12 +1,19 @@
-import React, { useState, PropTypes } from 'react';
+import React, { useState } from 'react';
 import "./SearchBar.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
-
+/**
+ * Constructs a searchbar based on data
+ * @param {String} placeholder
+ * @param {Array} data
+ * @param {parent-function} props
+ * @returns a React component.
+ */
 function SearchBar({placeholder, data, props}) {
 
+  // Filtered data is the results so far, wordEntered is the query so far
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
 

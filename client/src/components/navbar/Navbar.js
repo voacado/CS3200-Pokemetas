@@ -13,6 +13,10 @@ import {
   NavBtnLink,
 } from './NavbarStyle';
 
+/**
+ * NavBar that uses Routes to connect to other pages.
+ * @returns a React component.
+ */
 const Navbar = () => {
   return (
     <>

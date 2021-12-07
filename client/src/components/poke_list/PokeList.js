@@ -4,10 +4,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import SearchBar from '../search_bar/SearchBar';
 
-function PokeList({data}) {
+/**
+ * Constructs and visualizes a single list of Pokemon
+ * @param {Array} data 
+ * @returns a React component.
+ */
+function PokeList({ data }) {
 
+  // Stores list of Pokemon added
   const [list, setList] = React.useState([]);
 
+  /**
+   * Add element to list of pokemon
+   * @param {*} e 
+   */
   function handleAdd(e) {
     if (!(list.length >= 6)) {
       const name = e.target.getAttribute("name")
@@ -16,6 +26,10 @@ function PokeList({data}) {
     }
   }
 
+  /**
+   * Remove element to list of pokemon
+   * @param {*} e 
+   */
   function handleRemove(e) {
     if (!(list.length <= 0)) {
       const name = e.target.getAttribute("name")
@@ -23,9 +37,13 @@ function PokeList({data}) {
     }
   }
 
+  /**
+   * Given a poke_name, return the object detailing the Pokemon (from the database)
+   * @param {*} name 
+   */
   function getPokeObj(name) {
     data.forEach(element => {
-      if(element.poke_name === name) {
+      if (element.poke_name === name) {
         console.log(element);
       }
     });
@@ -33,26 +51,24 @@ function PokeList({data}) {
 
   return (
     <div>
-      <button name="testadd" onClick={handleAdd}> Test Add </button>
-      {/* <SearchBar placeholder="Enter Pokemon Name" data={data} props={() => handleAdd()} /> */}
+      {/* <button name="testadd" onClick={handleAdd}> Test Add </button> */}
       <SearchBar placeholder="Enter Pokemon Name" data={data} props={handleAdd} />
-      {/* <SearchBar placeholder="Enter Pokemon Name" data={data} props={"hello"} /> */}
       <div className="poke-list-overall">
-        <div className="poke-list">
-
-          {list.map((pokemon) => {
-            return <div className="indiv-item">
-              <li className="indiv-item">
-                {getPokeObj(pokemon)}
-                {pokemon}
-                <div className="remove-icon" name={ pokemon } onClick={ handleRemove }>
-                    <FontAwesomeIcon icon={ faTrash } size="1x" id="clearBtn"/>
-                </div>
-              </li>
-            </div>
-          })}
-
-        </div>
+        {list.length !== 0 && (
+          <div className="poke-list">
+            {list.map((pokemon) => {
+              return <div className="indiv-item">
+                <li className="indiv-item">
+                  {getPokeObj(pokemon)}
+                  {pokemon}
+                  <div className="remove-icon" name={pokemon} onClick={handleRemove}>
+                    <FontAwesomeIcon icon={faTrash} size="1x" id="clearBtn" />
+                  </div>
+                </li>
+              </div>
+            })}
+          </div>
+        )}
       </div>
     </div>
   )
