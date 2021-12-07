@@ -9,8 +9,13 @@ import {
     Button,
   } from './LoginBoxStyle';
 
+/**
+  * Async function call to backend API repsonsible for logging in.
+  * @param {String} username 
+  * @param {String} password 
+  */
 async function loginUser(username, password) {
-  return fetch(`http://localhost:3000/loginAPI`, {
+  return fetch('http://localhost:3000/loginAPI', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -20,14 +25,19 @@ async function loginUser(username, password) {
     .then(data => data.json())
   }
 
+  /**
+   * Login box component
+   * @param {*} { setToken }
+   */
 export default function LoginBox( { setToken } ) {
+  // useState keeps track of changes to username and password and stores them in the vars
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
+  // subfunction to handle login submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = await loginUser(username, password);
-
     if (data.auth) {
       setToken(data.token);
     } else {
