@@ -1,0 +1,19 @@
+.single-team-eval {
+  position: absolute;
+  /* padding: 0; */
+  /* margin: 0; */
+  /* height: 100%; */
+
+  background-image: url('../images/bulbasaurBG.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  width: 100vw;
+  height: calc(100vh - 85px);
+}
+
+/* .ste-container {
+  width: ;
+} */
