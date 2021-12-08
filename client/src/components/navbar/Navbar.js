@@ -2,7 +2,7 @@ import React from 'react';
 import { ReactComponent as PokeMetasSvg } from '../../images/pokemetas.svg';
 import { ReactComponent as UserIcon } from '../../images/userIcon.svg';
 import MenuIcon from '../menu/MenuIcon';
-import DropdownMenu from '../menu/DropdownMenu';
+import DropdownMenu, { DropdownItem } from '../menu/DropdownMenu';
 
 import {
   Nav,
@@ -44,7 +44,10 @@ const Navbar = () => {
         </NavMenu>
         <NavBtn>
           <MenuIcon icon={<UserIcon />}>
-            <DropdownMenu></DropdownMenu>
+            <DropdownMenu>
+              <DropdownItem>My Profile</DropdownItem>
+              <DropdownItem link='/my-teams'>My Teams</DropdownItem>
+            </DropdownMenu>
           </MenuIcon>
         </NavBtn>
       </Nav>
