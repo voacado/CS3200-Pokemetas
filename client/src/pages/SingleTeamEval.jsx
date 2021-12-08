@@ -13,15 +13,35 @@ function SingleTeamEval() {
             setPokemonSpecies(res.data);
         });
     };
-    // 3. Create a useEffect hook to update pokemonSpecies
+    const [pokemonTypes, setPokemonTypes] = useState([]);
+    const getPokemonTypes = () => {
+        axios.get("http://localhost:3000/pokemonTypes").then((res) => {
+            setPokemonTypes(res.data);
+        });
+    };
+    const [indivPokemonTypes, setIndivPokemonTypes] = useState([]);
+    const getIndivPokemonTypes = () => {
+        axios.get("http://localhost:3000/indivPokemonTypes").then((res) => {
+            setIndivPokemonTypes(res.data);
+        });
+    };
+    // 3. Create a useEffect hook to update data
     useEffect(() => {
         getPokemonSpecies();
+        getPokemonTypes();
+        getIndivPokemonTypes();
     }, []);
+    
+
+    var pokeSpeciesMap = new Map(pokemonSpecies.map(key => [key.poke_name, key]));
+    var indivPokemonTypesMap = new Map(indivPokemonTypes.map(key => [key.poke_name, key.poke_type]));
 
     return (
         <div className="single-team-eval">
             <div className="ste-container">
-                <PokeList data={pokemonSpecies} />
+                {/* {console.log(pokemonTypes)} */}
+                {/* {console.log(indivPokemonTypesMap)} */}
+                <PokeList data={pokemonSpecies} dataMap={pokeSpeciesMap} />
             </div>
         </div>
     );
