@@ -18,10 +18,18 @@ function SingleTeamEval() {
         getPokemonSpecies();
     }, []);
 
+    // var pokeSpeciesMap = pokemonSpecies.reduce(function(map, obj) {
+    //     map[obj.poke_name] = obj;
+    //     return map;
+    // }, {});
+    var pokeSpeciesMap = new Map(pokemonSpecies.map(key => [key.poke_name, key]));  
+
     return (
         <div className="single-team-eval">
             <div className="ste-container">
-                <PokeList data={pokemonSpecies} />
+                {/* {console.log(pokeSpeciesMap)} */}
+                {/* <PokeList data={pokemonSpecies} /> */}
+                <PokeList data={pokemonSpecies} dataMap={pokeSpeciesMap} />
             </div>
         </div>
     );

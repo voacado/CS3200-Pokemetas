@@ -9,7 +9,7 @@ import SearchBar from '../search_bar/SearchBar';
  * @param {Array} data 
  * @returns a React component.
  */
-function PokeList({ data }) {
+function PokeList({ data, dataMap }) {
 
   // Stores list of Pokemon added
   const [list, setList] = React.useState([]);
@@ -20,9 +20,7 @@ function PokeList({ data }) {
    */
   function handleAdd(name) {
     if (list.length < 6) {
-      // const name = e.target.getAttribute("name");
-      // console.log(e)
-      // console.log(name);
+
       const newList = list.concat(name);
       setList(newList);
     }
@@ -45,16 +43,11 @@ function PokeList({ data }) {
    * @param {String} name 
    */
   function getPokeObj(name) {
-    data.forEach(element => {
-      if (element.poke_name === name) {
-        console.log(element);
-      }
-    });
+    return dataMap.get(name);
   }
 
   return (
     <div>
-      {/* <button name="testadd" onClick={handleAdd}> Test Add </button> */}
       <SearchBar placeholder="Enter Pokemon Name" data={data} props={handleAdd} />
       <div className="poke-list-overall">
         {list.length !== 0 && (
@@ -62,9 +55,9 @@ function PokeList({ data }) {
             {list.map((pokemon, listIndex) => {
               return <div className="indiv-item">
                 <li className="indiv-item">
-                  {/* {getPokeObj(pokemon[index])} */}
-                  {/* {console.log(index)} */}
-                  {/* {console.log(list)} */}
+                  <div class="img-container">
+                    <img className="poke-image" src={getPokeObj(pokemon).sprite}></img>
+                  </div>
                   {pokemon}
                   <div className="remove-icon" onClick={() => handleRemove(listIndex)}>
                     <FontAwesomeIcon icon={faTrash} size="1x" id="clearBtn" />
