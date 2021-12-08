@@ -3,6 +3,8 @@ import "./PokeList.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import SearchBar from '../search_bar/SearchBar';
+import SingleTeamTypeChart from '../single_team_type_chart/SingleTeamTypeChart';
+
 
 /**
  * Constructs and visualizes a single list of Pokemon
@@ -16,7 +18,7 @@ function PokeList({ data, dataMap }) {
 
   /**
    * Add element to list of pokemon
-   * @param {*} e 
+   * @param {String} name 
    */
   function handleAdd(name) {
     if (list.length < 6) {
@@ -68,6 +70,7 @@ function PokeList({ data, dataMap }) {
           </div>
         )}
       </div>
+      <SingleTeamTypeChart listOfPokemon={list}></SingleTeamTypeChart>
     </div>
   )
 }

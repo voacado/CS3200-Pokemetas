@@ -63,11 +63,41 @@ handleDisconnect();
 // Export the data
 module.exports = connection;
 
-// Example Query
+// Pokemon Species Query
 app.get("/pokemonSpecies", (req, res) => {
   connection.query("SELECT * FROM pokemon_species", function (err, result) {
     if (err) throw err;
     res.send(result)
+  });
+});
+
+// Pokemon Types query
+app.get("/pokemonTypes", (req, res) => {
+  connection.query("SELECT * FROM poke_types", function (err, result) {
+    if (err) throw err;
+    res.send(result)
+  });
+});
+
+// Pokemon Types query
+app.get("/typeEffectiveness", (req, res) => {
+  connection.query("SELECT * FROM type_effectiveness", function (err, result) {
+    if (err) throw err;
+    res.send(result)
+  });
+});
+
+// Pokemon Types Assigned to Pokemon query
+app.get("/indivPokemonTypes", express.json(), (req, res) => {
+  // Call: http://localhost:3000/indivPokemonTypes?name=pokemonNameHere
+  var poke_name = req.query.name;
+  var sql    = 'SELECT * FROM indiv_pokemon_types WHERE poke_name = ' + connection.escape(poke_name);
+
+  connection.query(sql, (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    res.send(result);
   });
 });
 
@@ -85,11 +115,6 @@ app.get("/pokemonSpecies", (req, res) => {
 
 // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname, "../client/build")));
-
-// Handle GET requests to /api route
-app.get("/api", (req, res) => {
-  res.json({ message: "Hello from server!" });
-});
 
 // All other GET requests not handled before will return our React app
 app.get("*", (req, res) => {
