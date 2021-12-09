@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import LoginBox from '../components/login/LoginBox';
+import LoginBox from '../components/login_and_register/LoginBox';
 import useToken from '../hooks/useToken';
 
 function MyTeams(props) {

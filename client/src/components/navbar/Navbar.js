@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ReactComponent as PokeMetasSvg } from '../../images/pokemetas.svg';
-// import { ReactComponent as UserIcon } from '../../images/userIcon.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-regular-svg-icons';
 import { faUsers, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
@@ -21,7 +20,34 @@ import {
  * NavBar that uses Routes to connect to other pages.
  * @returns a React component.
  */
-const Navbar = () => {
+const Navbar = (props) => {
+  let displayCorrectIcon;
+
+    if (props.token) {
+      displayCorrectIcon = (
+        <NavBtn>
+        <MenuIcon icon={<FontAwesomeIcon icon={faUserCircle} />}>
+            <DropdownMenu>
+              <DropdownItem leftIcon={<FontAwesomeIcon icon={faUserCircle} />}>My Profile</DropdownItem>
+              <DropdownItem leftIcon={<FontAwesomeIcon icon={faUsers} />} link='/my-teams'>My Teams</DropdownItem>
+              <DropdownItem 
+                leftIcon={<FontAwesomeIcon icon={faSignOutAlt} />} 
+                link='/logout'>
+                  Log Out
+              </DropdownItem>
+            </DropdownMenu>
+          </MenuIcon>
+          </NavBtn>
+      )
+    } else {
+      displayCorrectIcon = (
+        <NavBtn>
+        <NavBtnLink to='/login'>Login</NavBtnLink>
+        <NavBtnLink to='/register'>Register</NavBtnLink>
+        </NavBtn>
+      )
+    }
+
   return (
     <>
       <Nav>
@@ -45,15 +71,7 @@ const Navbar = () => {
             (Search Bar goes here)
           </NavLink>
         </NavMenu>
-        <NavBtn>
-          <MenuIcon icon={<FontAwesomeIcon icon={faUserCircle} />}>
-            <DropdownMenu>
-              <DropdownItem leftIcon={<FontAwesomeIcon icon={faUserCircle} />}>My Profile</DropdownItem>
-              <DropdownItem leftIcon={<FontAwesomeIcon icon={faUsers} />} link='/my-teams'>My Teams</DropdownItem>
-              <DropdownItem leftIcon={<FontAwesomeIcon icon={faSignOutAlt} />}>Log Out</DropdownItem>
-            </DropdownMenu>
-          </MenuIcon>
-        </NavBtn>
+        {displayCorrectIcon}
       </Nav>
     </>
   );
