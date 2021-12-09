@@ -7,53 +7,93 @@ import React from 'react'
 async function getType(poke_name) {
   // Can call for specific data using query
   // const response = await fetch('http://localhost:3000/indivPokemonTypes?name=' + poke_name);
-  const data = fetch('http://localhost:3000/indivPokemonTypes?name=' + poke_name)
+  const data = await fetch('http://localhost:3000/indivPokemonTypes?name=' + poke_name)
   .then(data => data.json())
+  .then(out => [out])
   // Returns object [poke_name: String, poke_type: String]
   return data;
   }
 
+
   /**
    * Returns a list of Pokemon and their types.
-   * @param {Object (useState)} listOfPokemon 
+   * @param {Array/List} listOfPokemon 
    */
-function getTypes(listOfPokemon) {
+async function getTypes(listOfPokemon) {
   if (listOfPokemon.length !== 0) {
-    // Convert the object into an iterable array
-    const arr = Object.values(listOfPokemon)[0]
-    // Store data to return
+  
     var curTypeData = []
 
-    // For each Pokemon in the list
-    arr.map((pokemon) => (
-      getType(pokemon).then(function(result) {
-        // Since each Pokemon can be one or two types, we need to account for that:
-        if(result.length === 2) {
-          curTypeData.push(result[0])
-          curTypeData.push(result[1])
-        } else {
-          curTypeData.push(result[0])
-        }
+    for (var i = 0; i < listOfPokemon.length; i++) {
+      await getType(listOfPokemon[i]).then(
+        (result) => {
+          curTypeData.push(result)
       })
-    ))
-
-    console.log(curTypeData)
-    return curTypeData
+    }
+  return curTypeData
+  } else {
+    // Return null when there is no element yet so we can use as a comparator.
+    return null;
   }
 }
 
+
+/**
+  * Async function call to backend repsonsible for getting the type effectiveness between types.
+  */
+async function geTypeParity(type) {
+  // Can call for specific data using query
+  const typeEffectivenessData = await fetch('http://localhost:3000/typeEffectiveness?type=' + type)
+  .then(data => data.json())
+  .then(out => [out])
+  // Returns object [poke_name: String, poke_type: String]
+  return typeEffectivenessData;
+  }
+
+
 /**
  * For each Pokemon, return a list of values representing a Pokemon's effectiveness versus specific types.
+ * @param {Array/List} listOfPokemon 
  */
-function getTypeRow() {
+async function getTypeRow(listOfPokemon) {
+  
+  // List of Pokemon (from listOfPokemon) to their respective types
+  var curPokeToTypeList = await getTypes(listOfPokemon);
+  var typeDataLocal = await geTypeParity("Bug");
 
+  var results = []
+
+  // If there are no Pokemon selected, do not calculate based on a non-existent list
+  if (curPokeToTypeList !== null && curPokeToTypeList.length > 0) {
+    // For each Pokemon:
+    for (var i = 0; i < curPokeToTypeList.length; i++) {
+      var amtTypes = curPokeToTypeList[i].length
+      // If a Pokemon only has 1 type
+      if (amtTypes === 1) {
+        // console.log()
+        // If a Pokemon has 2 types
+      } else {
+
+      }
+      // console.log(curPokeToTypeList[i])
+    }
+  }
+
+
+  
+  // console.log("Pokemon List: ", curPokeToTypeList)
+  // console.log("Type: ", typeDataLocal)
 }
 
 
 function SingleTeamTypeChart(listOfPokemon) {
+  // NOTE: the Object "listOfPokemon" contains a single element (array) titled "listOfPokemon"
+  getTypeRow(listOfPokemon.listOfPokemon)
+
   return (
     <div>
-      {getTypes(listOfPokemon)}
+      {/* {getTypes(listOfPokemon)} */}
+      {/* {() => getTypeRow()} */}
     </div>
   )
 }

@@ -79,9 +79,20 @@ app.get("/pokemonTypes", (req, res) => {
   });
 });
 
+// // Pokemon Types query
+// app.get("/typeEffectiveness", (req, res) => {
+//   connection.query("SELECT * FROM type_effectiveness", function (err, result) {
+//     if (err) throw err;
+//     res.send(result)
+//   });
+// });
+
 // Pokemon Types query
-app.get("/typeEffectiveness", (req, res) => {
-  connection.query("SELECT * FROM type_effectiveness", function (err, result) {
+app.get("/typeEffectiveness", express.json(), (req, res) => {
+  // Call: http://localhost:3000/indivPokemonTypes?type=typeNameHere
+  var type_name = req.query.type;
+  var sql = "SELECT * FROM type_effectiveness WHERE type_defense = " + connection.escape(type_name);
+  connection.query(sql, function (err, result) {
     if (err) throw err;
     res.send(result)
   });
@@ -92,7 +103,6 @@ app.get("/indivPokemonTypes", express.json(), (req, res) => {
   // Call: http://localhost:3000/indivPokemonTypes?name=pokemonNameHere
   var poke_name = req.query.name;
   var sql    = 'SELECT * FROM indiv_pokemon_types WHERE poke_name = ' + connection.escape(poke_name);
-
   connection.query(sql, (err, result) => {
     if (err) {
       console.log(err);
