@@ -1,7 +1,11 @@
 import React from 'react';
 import { ReactComponent as PokeMetasSvg } from '../../images/pokemetas.svg';
+// import { ReactComponent as UserIcon } from '../../images/userIcon.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-regular-svg-icons';
+import { faUsers, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import MenuIcon from '../menu/MenuIcon';
+import DropdownMenu, { DropdownItem } from '../menu/DropdownMenu';
 
 import {
   Nav,
@@ -40,20 +44,15 @@ const Navbar = () => {
           <NavLink to='/search-bar' activestyle="true">
             (Search Bar goes here)
           </NavLink>
-          {/* Second Nav */}
-          {/* <NavBtnLink to='/sign-in'>Sign In</NavBtnLink> */}
         </NavMenu>
         <NavBtn>
-
-          {/* <NavBtnLink to='/signup'>Sign Up</NavBtnLink> */}
-          <NavBtnLink to='/signin'>Sign In</NavBtnLink>
-          {/* <img src="https://img.icons8.com/carbon-copy/50/000000/test-account.png"/> */}
-          
-
-          <NavBtnLink to='/login'>
-          <FontAwesomeIcon icon={ faUserCircle } size="2x"/>
-        </NavBtnLink>
-
+          <MenuIcon icon={<FontAwesomeIcon icon={faUserCircle} />}>
+            <DropdownMenu>
+              <DropdownItem leftIcon={<FontAwesomeIcon icon={faUserCircle} />}>My Profile</DropdownItem>
+              <DropdownItem leftIcon={<FontAwesomeIcon icon={faUsers} />} link='/my-teams'>My Teams</DropdownItem>
+              <DropdownItem leftIcon={<FontAwesomeIcon icon={faSignOutAlt} />}>Log Out</DropdownItem>
+            </DropdownMenu>
+          </MenuIcon>
         </NavBtn>
       </Nav>
     </>
