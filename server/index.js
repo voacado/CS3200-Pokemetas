@@ -79,19 +79,13 @@ app.get("/pokemonTypes", (req, res) => {
   });
 });
 
-// // Pokemon Types query
-// app.get("/typeEffectiveness", (req, res) => {
-//   connection.query("SELECT * FROM type_effectiveness", function (err, result) {
-//     if (err) throw err;
-//     res.send(result)
-//   });
-// });
-
 // Pokemon Types query
 app.get("/typeEffectiveness", express.json(), (req, res) => {
-  // Call: http://localhost:3000/indivPokemonTypes?type=typeNameHere
-  var type_name = req.query.type;
-  var sql = "SELECT * FROM type_effectiveness WHERE type_defense = " + connection.escape(type_name);
+  // Call: http://localhost:3000/typeEffectiveness?type1={type1}&type2={type2}
+  // Example: http://localhost:3000/typeEffectiveness?type1="fire"&type2="flying"
+  var type1 = req.query.type1;
+  var type2 = req.query.type2;
+  var sql = `CALL calculate_weaknesses(${type1}, ${type2})`;
   connection.query(sql, function (err, result) {
     if (err) throw err;
     res.send(result)
@@ -100,7 +94,8 @@ app.get("/typeEffectiveness", express.json(), (req, res) => {
 
 // Pokemon Types Assigned to Pokemon query
 app.get("/indivPokemonTypes", express.json(), (req, res) => {
-  // Call: http://localhost:3000/indivPokemonTypes?name=pokemonNameHere
+  // Call: http://localhost:3000/indivPokemonTypes?type=typeNameHere
+  // Example: http://localhost:3000/indivPokemonTypes?type=bug
   var poke_name = req.query.name;
   var sql    = 'SELECT * FROM indiv_pokemon_types WHERE poke_name = ' + connection.escape(poke_name);
   connection.query(sql, (err, result) => {

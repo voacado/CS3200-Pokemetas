@@ -37,11 +37,13 @@ function SingleTeamEval() {
     var indivPokemonTypesMap = new Map(indivPokemonTypes.map(key => [key.poke_name, key.poke_type]));
 
     return (
-        <div className="single-team-eval">
-            <div className="ste-container">
-                {/* {console.log(pokemonTypes)} */}
-                {/* {console.log(indivPokemonTypesMap)} */}
-                <PokeList data={pokemonSpecies} dataMap={pokeSpeciesMap} />
+        <div className="green-bg">
+            <div className="single-team-eval">
+                <div className="ste-container">
+                    {/* {console.log(pokemonTypes)} */}
+                    {/* {console.log(indivPokemonTypesMap)} */}
+                    <PokeList data={pokemonSpecies} dataMap={pokeSpeciesMap} />
+                </div>
             </div>
         </div>
     );

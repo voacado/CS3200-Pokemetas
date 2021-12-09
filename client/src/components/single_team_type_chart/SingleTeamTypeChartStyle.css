@@ -1,0 +1,15 @@
+.single-team-type-chart {
+  z-index: 3;
+  position: absolute;
+  left: 500px;
+  top: 110px;
+  /* left: 35vw; */
+  /* top: 100px; */
+  /* top: 14vh; */
+
+  /* display: inline-block;
+  margin-left: -500px; */
+
+  /* display: flex; */
+  /* justify-content: flex-end; */
+}
