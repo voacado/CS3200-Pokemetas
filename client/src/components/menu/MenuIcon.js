@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import useOutsideClicked from '../hooks/useOutsideClicked'
 import {
     MenuDiv,
     Li,
@@ -7,15 +8,15 @@ import {
 
 
 export default function MenuIcon(props) {
-    const [open, setOpen] = useState(false);
+    const { ref, isComponentVisible, setIsComponentVisible } = useOutsideClicked(false);
     return (
-        <MenuDiv>
+        <MenuDiv ref={ref}>
         <Li>
-            <IconDiv onClick={() => setOpen(!open)}>
+            <IconDiv onClick={() => setIsComponentVisible(!isComponentVisible)}>
                 {props.icon}
             </IconDiv>
 
-            {open && props.children}
+            {isComponentVisible && props.children}
         </Li>
         </MenuDiv>
     );

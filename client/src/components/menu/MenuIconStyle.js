@@ -5,7 +5,7 @@ export const MenuDiv = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 4;
+    z-index: 10;
 `;
 
 export const Li = styled.li`
@@ -15,17 +15,18 @@ export const Li = styled.li`
 export const IconDiv = styled.div`
     width: 30px;
     height: 30px;
-    background-color: #FAF9F6;
+    color: #fff;
+    background-color: #242526;
     border-radius: 50%;
     padding: 5px;
     margin: 2px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 1s;
-    will-change: scale;
+    transition: filter 1s;
+    transform: scale(1.3);
 
     &:hover {
-        transform: scale(1.3);
+        filter: brightness(2.0);
     }
 `;
