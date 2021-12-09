@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
-    LoginDiv,
+    Div,
     H1,
     P,
     Form,
     Input,
     Button,
-  } from './LoginBoxStyle';
+  } from './LAndRBoxStyle';
 
 /**
   * Async function call to backend API repsonsible for logging in.
   * @param {String} username 
   * @param {String} password 
   */
-async function loginUser(username, password) {
-  return fetch('http://localhost:3000/loginAPI', {
+async function registerUser(username, password) {
+  return fetch('http://localhost:3000/api/register', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -29,7 +29,7 @@ async function loginUser(username, password) {
    * Login box component
    * @param {*} { setToken }
    */
-export default function LoginBox( { setToken } ) {
+export default function RegisterBox( { setToken } ) {
   // useState keeps track of changes to username and password and stores them in the vars
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -37,29 +37,29 @@ export default function LoginBox( { setToken } ) {
   // subfunction to handle login submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = await loginUser(username, password);
-    if (data.auth) {
+    const data = await registerUser(username, password);
+    if (data.registered) {
       setToken(data.token);
     } else {
       const element = document.getElementById("message");
-      element.innerHTML =  "Username and/or password is incorrect.";
-      setTimeout(() => { window.location.reload(false) }, 2000);
+      element.innerHTML =  data.message;
+      setTimeout(() => { element.innerHTML =  ""; }, 2000);
     }
   }
 
   return(
-    <LoginDiv>
+    <Div>
     <Form onSubmit={handleSubmit}>
-        <H1>Log In</H1>
+        <H1>Register</H1>
         <P id="message"></P>
         <Input placeholder="Username" type="text" onChange={e => setUserName(e.target.value)} />
         <Input placeholder="Password" type="password" onChange={e => setPassword(e.target.value)} />
-        <Button id="submit">Login</Button>
+        <Button id="submit">Register</Button>
     </Form>
-    </LoginDiv>
+    </Div>
   );
 }
 
-LoginBox.propTypes = {
+RegisterBox.propTypes = {
   setToken: PropTypes.func.isRequired
 }

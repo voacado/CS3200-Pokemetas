@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const LoginDiv = styled.div`
+export const Div = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;

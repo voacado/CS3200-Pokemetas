@@ -131,15 +131,26 @@ app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
 });
 
-app.post("/register", express.json(), (req, res) => {
-  const { username, password } = req.body;
-  connection.query("CALL add_user(?, ?, FALSE)", username, password, function (err, result) {
-    if (err) res.status(400).json({ error : err });
-    res.json(result);
+app.post("/api/register", express.json(), (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+  connection.query("CALL add_user(?, ?, FALSE)", [username, password], function (err, results) {
+    if (err) console.log(err);
+    const result = results[0][0];
+
+    if (result.MESSAGE === 'User registered.') {
+      const token = createTokens(result.member_id);
+      res.cookie("accessToken", token, {
+        maxAge: 2592000000,
+      });
+      res.json( {registered: true, token: token} );
+    } else {
+      res.json( {registered: false, message: result.MESSAGE} );
+    }
   });
 });
 
-app.post("/loginAPI", express.json(), (req, res) => {
+app.post("/api/login", express.json(), (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   connection.query(`CALL sign_in(?,?)`, [username, password], (err, results) => {
@@ -155,7 +166,7 @@ app.post("/loginAPI", express.json(), (req, res) => {
       });
       res.json( { auth: member.auth,  token: token });
     } else {
-      res.json( { auth: member.auth, message: member.MESSAGE });
+      res.json( { auth: member.auth });
     }
   });
 });
