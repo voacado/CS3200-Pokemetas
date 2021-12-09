@@ -94,30 +94,6 @@ async function getTypeRow(listOfPokemon) {
   return results;
 }
 
-
-// async function drawTable(listOfPokemon) {
-//   console.log(listOfPokemon)
-//   var results = await getTypeRow(listOfPokemon.listOfPokemon)
-
-
-//   return (
-//     <div id="chart" className="single-team-type-chart">
-//       <table className="single-team-type-table">
-//         <thead>
-//           <tr>
-//             {/* {results.forEach((item) => {
-//               return <th>hi</th>;
-//             })}
-//               ifgosdjfigodsjgiosdgiods */}
-//           </tr>
-//         </thead>
-//       </table>
-//     </div> 
-//     )
-
-//   // return newHTML;
-// }
-
 function SingleTeamTypeChart(listOfPokemon) {
   // Stores table data
   const [tableData, setTableData] = React.useState([]);
@@ -150,17 +126,54 @@ function SingleTeamTypeChart(listOfPokemon) {
     fetchData();
   }, [pokemonData]);
 
-  // console.log(tableData)
-  // console.log(" ")
-  // for (var i = 0; i < tableData.length; i++) {
-  //   console.log(tableData[i])
-  // }
+  // Helper method to create rows for the table (regarding indiv Pokemon weaknesses):
+  const createPokemonTypeRows = (index) => {
+    // Error checks, should not attempt to create table if no data exists
+    if (tableData.length > 0 && index != undefined) {
+      var rows = []
+      // For each element/type
+      for (var i = 0; i < 18; i++) {
+        // Index leads to the effect int compared to each type
+        rows.push(<tr> {tableData[index][1][0][0][i].effect} </tr>)
+      }
+      return rows
+    }
+  }
 
-
+    // Helper method to create rows for the table (regarding types):
+    const createTypeRows = () => {
+      if (tableData.length > 0) {
+        var rows = []
+        // For each element/type
+        for (var i = 0; i < 18; i++) {
+          // Index leads to the name of each type for the first Pokemon
+          var word = tableData[0][1][0][0][i].type_attack
+          // Capitalize the first letter
+          rows.push(<tr> {word[0].toUpperCase() + word.slice(1)} </tr>)
+        }
+        return rows
+      }
+    }
 
   return (
     <div id="chart" className="single-team-type-chart">
-      <button onClick={fetchData}></button>
+      <table>
+        <thead>
+          {/* Only show table if Pokemon is in list */}
+          {tableData.length > 0 && <th> Types </th>}
+          {/* List Pokemon names */}
+          {tableData.map((item) => {
+            return <th> {item[0]} </th>
+          })}
+        </thead>
+        <tbody>
+          {/* List Pokemon stats */}
+          <td> {createTypeRows()} </td>
+          {tableData.map((item, index) => {
+            return <td> {createPokemonTypeRows(index)} </td>
+          })}
+        </tbody>
+      </table>
     </div>
   )
 
