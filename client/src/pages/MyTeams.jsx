@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import LoginBox from '../components/login/LoginBox';
-import useToken from '../components/hooks/useToken';
+import useToken from '../hooks/useToken';
 
 function MyTeams(props) {
     const {token, setToken} = useToken();

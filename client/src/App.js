@@ -9,6 +9,7 @@ import NotFound from './pages/NotFound';
 import Login from './pages/Login';
 import MyTeams from './pages/MyTeams';
 import About from './pages/About';
+import Logout from './pages/Logout';
 
 import Navbar from './components/navbar/Navbar';
 
@@ -25,6 +26,7 @@ function App() {
           <Route exact path="/single-team-eval" element={<SingleTeamEval />}/>
           <Route exact path="/login" element={<Login />}/>
           <Route exact path="/my-teams" element={<MyTeams />}/>
+          <Route exact path="/logout" element={<MyTeams />}/>
 
           <Route path="/404" element={<NotFound />} />
           <Route path="*" element={<Navigate replace to="/404" />} />

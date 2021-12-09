@@ -1,5 +1,5 @@
 import React from 'react';
-import useOutsideClicked from '../hooks/useOutsideClicked'
+import useMenuOpenClose from '../../hooks/useMenuOpenClose'
 import {
     MenuDiv,
     Li,
@@ -8,15 +8,15 @@ import {
 
 
 export default function MenuIcon(props) {
-    const { ref, isComponentVisible, setIsComponentVisible } = useOutsideClicked(false);
+    const { ref, open, setOpen } = useMenuOpenClose(false);
     return (
         <MenuDiv ref={ref}>
         <Li>
-            <IconDiv onClick={() => setIsComponentVisible(!isComponentVisible)}>
+            <IconDiv onClick={() => setOpen(!open)}>
                 {props.icon}
             </IconDiv>
 
-            {isComponentVisible && props.children}
+            {open && props.children}
         </Li>
         </MenuDiv>
     );
