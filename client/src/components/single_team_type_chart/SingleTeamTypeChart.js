@@ -84,6 +84,7 @@ async function getTypeRow(listOfPokemon) {
         results.push(data)
       } else {
         // If a Pokemon has 2 types
+        console.log(curPokeToTypeList)
         var data = [curPokeToTypeList[i][0][0].poke_name, 
         await getTypeParity(curPokeToTypeList[i][0][0].poke_type, curPokeToTypeList[i][0][1].poke_type)]
         results.push(data)

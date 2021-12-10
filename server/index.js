@@ -85,8 +85,8 @@ app.get("/typeEffectiveness", express.json(), (req, res) => {
 app.get("/indivPokemonTypes", express.json(), (req, res) => {
   // Call: http://localhost:3000/indivPokemonTypes?type=typeNameHere
   // Example: http://localhost:3000/indivPokemonTypes?type=bug
-  var poke_name = req.query.name;
-  var sql    = 'SELECT * FROM indiv_pokemon_types WHERE poke_name = ' + poke_name;
+  var poke_name = String(req.query.name);
+  var sql = "SELECT * FROM indiv_pokemon_types WHERE poke_name = " + connection.escape(poke_name);
   connection.query(sql, (err, result) => {
     if (err) {
       if (err) res.status(400).json({Error: err});
