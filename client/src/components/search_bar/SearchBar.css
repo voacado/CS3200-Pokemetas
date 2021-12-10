@@ -77,3 +77,12 @@ button:hover {
 #clearBtn {
   pointer-events: none;
 }
+
+.title {
+  /* position: absolute; */
+  /* top: 40px; */
+  margin-top: 60px;
+  margin-bottom: -54px;
+  font-size: 36px;
+  font-weight: 700;
+}

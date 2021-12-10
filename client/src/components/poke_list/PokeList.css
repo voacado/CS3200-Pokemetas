@@ -94,3 +94,25 @@
   object-fit: cover;
   flex: 1;
 }
+
+/* .type-chart {
+  position: absolute;
+  left: 200px;
+  float: right;
+  display:flex;
+  flex-direction: row;
+}
+
+.three-component {
+  display: grid;
+} */
+
+.side-by-side-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.top-down-container {
+  display: flex;
+  flex-direction: column;
+}
