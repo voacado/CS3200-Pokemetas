@@ -4,10 +4,13 @@ import { faUserCircle } from '@fortawesome/free-regular-svg-icons';
 import { NavBtnLink } from '../components/navbar/NavbarStyle';
 import Popup from '../components/popup/Popup';
 import { useNavigate } from 'react-router-dom';
+import LoginBox from '../components/form/LoginBox';
 import '../pages-css/Profile.css';
 
 /**
- * Profile Page
+ * Profile Page, shows name and allows you to change password and delete the account here.
+ * 
+ * @param props arguments passed by parent component
  */
 export default function Profile(props) {
     const [name, setName] = useState();
@@ -18,18 +21,23 @@ export default function Profile(props) {
         setName(`${capitalize(user.username)}'s Profile`);
     }
 
-    // calls getName when component is rendered
+    // calls getName when component is rendered (otherwise would continously call)
     useEffect(() => {
-        getName();
+      if (props.token) getName();
       });
 
     const navigate = useNavigate();
-
+    
+    // deletes the user and redirects to home if the delete Account button is pressed.
     const deleteAndRedirect = async () => { 
         await deleteUser();
         navigate('/home');
         props.setToken("")
       }
+    
+    if (!props.token) {
+      return <LoginBox setToken={props.setToken} />
+    }
 
     return (
         <div className='profile'>
@@ -62,6 +70,7 @@ function capitalize(string) {
     return string.replace(reg, (w) => w.charAt(0).toUpperCase() + w.slice(1));
   }
 
+// request to delete the current user
 async function deleteUser() {
     let port = "";
     if (window.location.port) {
@@ -70,9 +79,16 @@ async function deleteUser() {
 
     return fetch(`http://${window.location.hostname}${port}/api/delete-user`, {
         method: 'DELETE'
-    }).then(data => data.json());
+    }).then(data => {
+        if (data.ok) {
+          return data.json();
+        } else {
+          console.log(data);
+        }
+      })
 }
 
+// request to fetch the username of the current user
 async function fetchUsername() {
     let port = "";
     if (window.location.port) {
@@ -81,5 +97,11 @@ async function fetchUsername() {
 
     return fetch(`http://${window.location.hostname}${port}/api/profile`, {
         method: 'GET'
-    }).then(data => data.json());
+    }).then(data => {
+        if (data.ok) {
+          return data.json();
+        } else {
+          console.log(data);
+        }
+      })
 }

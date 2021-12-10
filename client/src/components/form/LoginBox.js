@@ -42,8 +42,12 @@ export default function LoginBox(props) {
   // subfunction to handle login submission
   const handleSubmit = async (e) => {
       e.preventDefault();
-      const data = await loginUser(username, password);
       const element = document.getElementById("message");
+      if (username.length > 100 || password.length > 50) {
+        element.innerHTML =  "Username must be 100 or less character and password must be 50 or less characters.";
+        setTimeout(() => { element.innerHTML =  ""; }, 2000);
+      }
+      const data = await loginUser(username, password);
       if (data.auth) {
         element.innerHTML = "Logged in.";
         setTimeout(() => { props.setToken(data.token) }, 2000);

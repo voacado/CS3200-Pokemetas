@@ -13,8 +13,13 @@ function Register(props) {
     // subfunction to handle register submission
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const data = await registerUser(username, password);
         const element = document.getElementById("message");
+        if (username.length > 100 || password.length > 50) {
+          element.innerHTML =  "Username must be 100 or less character and password must be 50 or less characters.";
+          setTimeout(() => { element.innerHTML =  ""; }, 2000);
+          return;
+        }
+        const data = await registerUser(username, password);
         if (data.registered) {
             element.innerHTML = data.message;
             setTimeout(() => { props.setToken(data.token) }, 2000);
@@ -24,6 +29,7 @@ function Register(props) {
         }
     }
 
+    // before registration we show registration box
     if (!props.token) {
         return <FormBox title='Register' 
         setToken={props.setToken} 
@@ -36,6 +42,7 @@ function Register(props) {
         setBottom={setPassword}/>
     }
 
+    // afterwards we redirect to homepage
     return <Navigate to='/home' />
     
 }
@@ -58,7 +65,13 @@ function Register(props) {
       },
       body: JSON.stringify({ username, password })
     })
-      .then(data => data.json())
+      .then(data => {
+        if (data.ok) {
+          return data.json();
+        } else {
+          console.log(data);
+        }
+      })
     }
 
 export default Register;

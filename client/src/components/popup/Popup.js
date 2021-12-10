@@ -3,11 +3,14 @@ import { ButtonDiv, PopupDiv, IconDiv, Title } from './PopupStyle';
 import useMenuOpenClose from '../../hooks/useMenuOpenClose';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom';
 
+/**
+ * Abstracted popup menu that can be passed in a function on what to do when the yes option is selected.
+ * 
+ * @param props arguments passed by parent component 
+ */
 export default function Popup(props) {
     const { ref, open, setOpen } = useMenuOpenClose(false);
-    const navigate = useNavigate();
     return (
         <div ref={ref}>
         <ButtonDiv onClick={() => setOpen(!open)}>{props.text}</ButtonDiv>

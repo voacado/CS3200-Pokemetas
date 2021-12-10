@@ -10,12 +10,12 @@ import {
   } from './FormBoxStyle';
 
   /**
-   * Login box component
-   * @param {*} { setToken }
+   * Form box component, abstracted to suit any need for a form with 2 inputs.
+   * @param props arguments passed down by parent component
    */
 export default function FormBox(props) {
 
-  // subfunction to handle login submission
+  // subfunction to handle what occurs at submission
   const handleSubmit = props.handleSubmit;
 
   return(

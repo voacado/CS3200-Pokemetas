@@ -6,7 +6,10 @@ import {
     IconDiv,
 } from './MenuIconStyle';
 
-
+/**
+ * The icon for the dropdown menu, can be set to any svg image.
+ * @param props arguments passed by parent component 
+ */
 export default function MenuIcon(props) {
     const { ref, open, setOpen } = useMenuOpenClose(false);
     return (

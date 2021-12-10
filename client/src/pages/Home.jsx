@@ -1,6 +1,9 @@
 import React from 'react';
 import '../pages-css/Home.css'
 
+/**
+ * Homepage of the website.
+ */
 function Home() {
 
     return (

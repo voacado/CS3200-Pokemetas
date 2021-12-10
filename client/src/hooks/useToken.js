@@ -1,5 +1,8 @@
 import { useState } from 'react';
 
+/**
+ * Custom hook to get and set the JWT token and rerender any related components on setting.
+ */
 export default function useToken() {
   const getToken = () => {
     const name = "accessToken";

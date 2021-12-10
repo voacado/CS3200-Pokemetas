@@ -39,26 +39,15 @@ function handleDisconnect() {
   });                                     // process asynchronous requests in the meantime.
                                           // If you"re also serving http, display a 503 error.
   connection.on("error", function(err) {
-    //console.log("db error", err);
     if(err.code === "PROTOCOL_CONNECTION_LOST") { // Connection to the MySQL server is usually
       handleDisconnect();                         // lost due to either server restart, or a
     } else {                                      // connnection idle timeout (the wait_timeout
-      throw err;                                  // server variable configures this)
+      console.log(err)                                  // server variable configures this)
     }
   });
 }
 
 handleDisconnect();
-
-// // TODO: handle timeouts (MySQL connection drops after x time)
-// // https://stackoverflow.com/questions/20210522/nodejs-mysql-error-connection-lost-the-server-closed-the-connection
-// let connection = mysql.createConnection(
-//   process.env.CLEARDB_DATABASE_URL
-// );
-// connection.connect(function(err) {
-//   if (err) throw err;
-//   console.log("Connected!");
-// });
 
 // Export the data
 module.exports = connection;
@@ -66,7 +55,7 @@ module.exports = connection;
 // Pokemon Species Query
 app.get("/pokemonSpecies", (req, res) => {
   connection.query("SELECT * FROM pokemon_species", function (err, result) {
-    if (err) throw err;
+    if (err) res.status(400).json({Error: err});
     res.send(result)
   });
 });
@@ -74,7 +63,7 @@ app.get("/pokemonSpecies", (req, res) => {
 // Pokemon Types query
 app.get("/pokemonTypes", (req, res) => {
   connection.query("SELECT * FROM poke_types", function (err, result) {
-    if (err) throw err;
+    if (err) res.status(400).json({Error: err});
     res.send(result)
   });
 });
@@ -87,7 +76,7 @@ app.get("/typeEffectiveness", express.json(), (req, res) => {
   var type2 = req.query.type2;
   var sql = `CALL calculate_weaknesses(${type1}, ${type2})`;
   connection.query(sql, function (err, result) {
-    if (err) throw err;
+    if (err) res.status(400).json({Error: err});
     res.send(result)
   });
 });
@@ -100,7 +89,7 @@ app.get("/indivPokemonTypes", express.json(), (req, res) => {
   var sql    = 'SELECT * FROM indiv_pokemon_types WHERE poke_name = ' + connection.escape(poke_name);
   connection.query(sql, (err, result) => {
     if (err) {
-      console.log(err);
+      if (err) res.status(400).json({Error: err});
     }
     res.send(result);
   });
@@ -111,12 +100,9 @@ app.get("/userToTeamID", express.json(), (req, res) => {
   // Call: http://localhost:3000/userToTeamID
   // Example: http://localhost:3000/userToTeamID
   var userID = getId(req);
-
-  // console.log("ID: ", userID);
   var sql = `CALL user_to_team_ids(${userID})`;
-  // var sql = `CALL user_to_team_ids(2)`;
   connection.query(sql, function (err, result) {
-    if (err) throw err;
+    if (err) res.status(400).json({Error: err});
     res.send(result)
   });
 });
@@ -128,7 +114,7 @@ app.get("/teamIDToPokemon", express.json(), (req, res) => {
   var teamID = req.query.teamID;
   var sql = `CALL team_id_to_pokemon(${teamID})`;
   connection.query(sql, function (err, result) {
-    if (err) throw err;
+    if (err) res.status(400).json({Error: err});
     res.send(result)
   });
 });
@@ -141,12 +127,12 @@ app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
 });
 
-// Send register user data
+// request that registers the user with the given username and password
 app.post("/api/register", express.json(), (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   connection.query("CALL add_user(?, ?, FALSE)", [username, password], function (err, results) {
-    if (err) console.log(err);
+    if (err) res.status(400).json({Error: err});
     const result = results[0][0];
 
     if (result.MESSAGE === 'User registered.') {
@@ -161,13 +147,13 @@ app.post("/api/register", express.json(), (req, res) => {
   });
 });
 
-// Send login user data
+// request that validates login details given the username and password
 app.post("/api/login", express.json(), (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   connection.query(`CALL sign_in(?,?)`, [username, password], (err, results) => {
     if (err) {
-      console.log(err);
+      if (err) res.status(400).json({Error: err});
     }
 
     const member = results[0][0];
@@ -183,22 +169,24 @@ app.post("/api/login", express.json(), (req, res) => {
   });
 });
 
+// request to get the username of the requested user 
 app.get("/api/profile", (req, res) => {
   if (validateToken) {
     const id = getId(req);
     connection.query("SELECT username FROM member WHERE member_id=?", id, (err, results) => {
-      if (err) console.log(err);
+      if (err) res.status(400).json({Error: err});
       res.json({ username: results[0].username});
     });
   } 
 });
 
+// request to change the password of the requested user
 app.put("/api/change-password", (req, res) => {
   if (validateToken) {
     const password = req.body.password;
     const id = getId(req);
     connection.query("CALL change_password(?,?)", [id, password], (err, results) => {
-      if (err) console.log(err);
+      if (err) res.status(400).json({Error: err});
       const result = results[0][0];
       if (result.MESSAGE === 'Password has been changed.') {
         res.json({success: true, message: result.MESSAGE});
@@ -209,11 +197,12 @@ app.put("/api/change-password", (req, res) => {
   }
 });
 
+// request for backend to delete the user of the device and remove their cookies
 app.delete("/api/delete-user", (req, res) => {
   if (validateToken) {
     const id = getId(req);
     connection.query("CALL delete_user(?)", id, (err, results) => {
-      if (err) console.log(err);
+      if (err) res.status(400).json({Error: err});
       const result = results[0][0];
       if (result.MESSAGE === 'User has been deleted.') {
         res.clearCookie("accessToken")

@@ -6,6 +6,10 @@ import {
     Triangle,
 } from './DropdownMenuStyle';
 
+/**
+ * Backgroud for dropdown menu with a triangle divot.
+ * @param props arguments passed by parent component 
+ */
 export default function DropdownMenu(props) {
     return (
         <div>
@@ -17,6 +21,10 @@ export default function DropdownMenu(props) {
     );
 }
 
+/**
+ * The tabs that are within the dropdown menu.
+ * @param props arguments passed by parent component 
+ */
 export function DropdownItem(props) {
     return (
         <MenuItem href={props.link}>

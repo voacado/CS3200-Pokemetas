@@ -3,7 +3,8 @@ import { Navigate } from 'react-router-dom';
 import FormBox from '../components/form/FormBox';
 
 /**
- * Login page
+ * Page to change your password
+ * 
  * @param props Properties passed from parent component
  */
 function ChangePassword(props) {
@@ -13,19 +14,24 @@ function ChangePassword(props) {
     // subfunction to handle password change submission
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const data = await editPass(password);
         const element = document.getElementById("message");
-        if (password === confirm) {
+        if (password.length > 50) {
+          element.innerHTML =  "Password must be 50 or less characters.";
+          setTimeout(() => { element.innerHTML =  ""; }, 2000);
+          return;
+        }
+        if (password !== confirm) {
+            element.innerHTML =  "The two passwords do not match";
+            setTimeout(() => { element.innerHTML =  ""; }, 2000);
+            return;
+        }
+        const data = await editPass(password);
             if (data.success) {
                 element.innerHTML = data.message
             } else {
                 element.innerHTML =  data.message;
                 setTimeout(() => { element.innerHTML =  ""; }, 2000);
             }
-        } else {
-            element.innerHTML =  "The two passwords do not match";
-            setTimeout(() => { element.innerHTML =  ""; }, 2000);
-        }
     }
 
         return <FormBox title='Change Password' 
@@ -55,7 +61,13 @@ function ChangePassword(props) {
       },
       body: JSON.stringify({ password })
     })
-      .then(data => data.json())
-    }
+    .then(data => {
+      if (data.ok) {
+        return data.json();
+      } else {
+        console.log(data);
+      }
+    })
+  }
 
 export default ChangePassword;

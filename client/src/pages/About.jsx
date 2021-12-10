@@ -1,6 +1,9 @@
 import React from 'react'
 import '../pages-css/About.css'
 
+/**
+ * Some information about the website.
+ */
 function About() {
   return (
     <div className="about">
