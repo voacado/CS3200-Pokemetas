@@ -79,7 +79,7 @@ app.get("/pokemonTypes", (req, res) => {
   });
 });
 
-// Pokemon Types query
+// Pokemon Type Effectiveness query
 app.get("/typeEffectiveness", express.json(), (req, res) => {
   // Call: http://localhost:3000/typeEffectiveness?type1={type1}&type2={type2}
   // Example: http://localhost:3000/typeEffectiveness?type1="fire"&type2="flying"
@@ -106,6 +106,30 @@ app.get("/indivPokemonTypes", express.json(), (req, res) => {
   });
 });
 
+// Get a user's teams - query
+app.get("/userToTeamID", express.json(), (req, res) => {
+  // Call: http://localhost:3000/userToTeamID?userID={userIDNumber}
+  // Example: http://localhost:3000/userToTeamID?userID=2
+  var userID = req.query.userID;
+  var sql = `CALL user_to_team_ids(${userID})`;
+  connection.query(sql, function (err, result) {
+    if (err) throw err;
+    res.send(result)
+  });
+});
+
+// Get a list of Pokemon that represent a team (given ID) - query
+app.get("/teamIDToPokemon", express.json(), (req, res) => {
+  // Call: http://localhost:3000/teamIDToPokemon?teamID={teamIDNumber}
+  // Example: http://localhost:3000/teamIDToPokemon?teamID=1
+  var teamID = req.query.teamID;
+  var sql = `CALL team_id_to_pokemon(${teamID})`;
+  connection.query(sql, function (err, result) {
+    if (err) throw err;
+    res.send(result)
+  });
+});
+
 // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname, "../client/build")));
 
@@ -114,6 +138,7 @@ app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
 });
 
+// Send register user data
 app.post("/api/register", express.json(), (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
@@ -133,6 +158,7 @@ app.post("/api/register", express.json(), (req, res) => {
   });
 });
 
+// Send login user data
 app.post("/api/login", express.json(), (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
@@ -154,8 +180,7 @@ app.post("/api/login", express.json(), (req, res) => {
   });
 });
 
-
-
+// Inform (to console) that server port has opened
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });

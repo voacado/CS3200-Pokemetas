@@ -96,13 +96,14 @@ async function getTypeRow(listOfPokemon) {
 }
 
 function SingleTeamTypeChart(listOfPokemon) {
+
   // Stores table data
   const [tableData, setTableData] = React.useState([]);
   // Stores information about the parameter (specifically, if it has updated)
   // We do this bc we want to fetch new data (async call) only when the list has been updated.
   const [pokemonData, setPokemonData] = React.useState(listOfPokemon.listOfPokemon.length);
   const pokemonDataRef = useRef(pokemonData);
-
+  
   /**
    * Call to fetch new data (async call)
    */
@@ -185,7 +186,7 @@ function SingleTeamTypeChart(listOfPokemon) {
       tempData.push(<td></td>)
     }
 
-    console.log(tempData)
+    // console.log(tempData)
     return tempData;
   }
 

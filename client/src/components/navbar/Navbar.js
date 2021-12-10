@@ -61,9 +61,9 @@ const Navbar = (props) => {
           <NavLink to='/about' activestyle="false">
             About
           </NavLink>
-          <NavLink to='/my-teams' activestyle="true">
+          {/* <NavLink to='/my-teams' activestyle="true">
             My Teams
-          </NavLink>
+          </NavLink> */}
           <NavLink to='/single-team-eval' activestyle="true">
             Team Evaluator
           </NavLink>
