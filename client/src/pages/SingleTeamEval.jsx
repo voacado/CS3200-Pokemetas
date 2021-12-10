@@ -8,20 +8,20 @@ function SingleTeamEval() {
     // 1. Initialize an array called pokemonSpecies, which contains all pokemonSpecies data
     const [pokemonSpecies, setPokemonSpecies] = useState([]);
     // 2. Create function to GET all the pokemonSpecies from server store to pokemonSpecies array.
-    const getPokemonSpecies = () => {
-        axios.get("http://localhost:3000/pokemonSpecies").then((res) => {
+    const getPokemonSpecies = async () => {
+        await axios.get("http://localhost:3000/pokemonSpecies").then((res) => {
             setPokemonSpecies(res.data);
         });
     };
     const [pokemonTypes, setPokemonTypes] = useState([]);
-    const getPokemonTypes = () => {
-        axios.get("http://localhost:3000/pokemonTypes").then((res) => {
+    const getPokemonTypes = async () => {
+        await axios.get("http://localhost:3000/pokemonTypes").then((res) => {
             setPokemonTypes(res.data);
         });
     };
     const [indivPokemonTypes, setIndivPokemonTypes] = useState([]);
-    const getIndivPokemonTypes = () => {
-        axios.get("http://localhost:3000/indivPokemonTypes").then((res) => {
+    const getIndivPokemonTypes = async () => {
+        await axios.get("http://localhost:3000/indivPokemonTypes").then((res) => {
             setIndivPokemonTypes(res.data);
         });
     };

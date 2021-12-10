@@ -176,7 +176,7 @@ function SingleTeamTypeChart(listOfPokemon) {
         tempData.push(<td style={{color: "#008C00"}}><b> {tableData[index][1][0][0][i].effect + "x"} </b></td>)
       } else {
         // val == 0
-        tempData.push(<td style={{color: "#007676"}}><b> {tableData[index][1][0][0][i].effect + "x"} </b></td>)
+        tempData.push(<td style={{color: "#3166B1"}}><b> {tableData[index][1][0][0][i].effect + "x"} </b></td>)
       }
     })
 
