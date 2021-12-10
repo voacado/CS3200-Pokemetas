@@ -8,13 +8,6 @@ Website for the Pokemetas site (Database Design Project)
 4. "npm start" (in /client - starts frontend)
 5. http://localhost:3000/ in browser (it is important to be on port 3000 for the client)
 
-## Credientials
-user: test
-pass: 123
-
-## Video
-https://drive.google.com/drive/folders/1C2QgDAjvZP_kW1Hg6SMWmZwXLvNgpBRo?usp=sharing
-
 ## Setup Tutorial
 This project can be found live on https://cs3200-pokemetas.herokuapp.com/ (please note that many of the features do not work online yet as they are still coded to work on localhost).
 Additionally, the GitHub repo for this project is: https://github.com/AntVo2448/CS3200-Pokemetas
