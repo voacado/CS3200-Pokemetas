@@ -64,7 +64,7 @@ const Navbar = (props) => {
           {/* <NavLink to='/my-teams' activestyle="true">
             My Teams
           </NavLink> */}
-          <NavLink to='/single-team-eval' activestyle="true">
+          <NavLink to='/single-team-eval' state= {{pokeTeam: []}} activestyle="true">
             Team Evaluator
           </NavLink>
         </NavMenu>
