@@ -8,4 +8,12 @@
   position: absolute;
   width: 100vw;
   height: calc(100vh - 85px);
+
+  color: white;
+}
+
+.words {
+  font-size: 16px;
+  padding-left: 30vw;
+  padding-right: 30vw;
 }

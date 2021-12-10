@@ -1,13 +1,14 @@
 import React from 'react';
 import '../pages-css/Home.css'
 
+/**
+ * Homepage of the website.
+ */
 function Home() {
 
     return (
-        <div class="home">
-            <h1>Welcome to PokeMetas</h1>
-            <p>I bring the sauce.</p>
-            {/* <img src="../images/pokeball.svg"> </img> */}
+        <div className="home">
+            <h1 className="title">Welcome to PokeMetas</h1>
         </div>
     );
 }

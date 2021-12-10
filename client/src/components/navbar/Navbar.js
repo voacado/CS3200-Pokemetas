@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ReactComponent as PokeMetasSvg } from '../../images/pokemetas.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-regular-svg-icons';
@@ -18,11 +18,12 @@ import {
 
 /**
  * NavBar that uses Routes to connect to other pages.
- * @returns a React component.
+ * @param props arguments passed by parent component 
  */
 const Navbar = (props) => {
   let displayCorrectIcon;
 
+    // displays login and register button if not logged in and a user dropdown menu if you are logged in
     if (props.token) {
       displayCorrectIcon = (
         <NavBtn>
@@ -61,9 +62,6 @@ const Navbar = (props) => {
           <NavLink to='/about' activestyle="false">
             About
           </NavLink>
-          {/* <NavLink to='/my-teams' activestyle="true">
-            My Teams
-          </NavLink> */}
           <NavLink to='/single-team-eval' state= {{pokeTeam: []}} activestyle="true">
             Team Evaluator
           </NavLink>

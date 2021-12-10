@@ -15,12 +15,14 @@ import {
   * @param {String} password 
   */
  async function loginUser(username, password) {
-  let port = "";
+  let link = "";
   if (window.location.port) {
-    port = `:${window.location.port}`
-  } 
+    link = `http://${window.location.hostname}:${window.location.port}/api/login`
+  } else {
+    link =`https://${window.location.hostname}/api/login`
+  }
 
-  return fetch(`http://${window.location.hostname}${port}/api/login`, {
+  return fetch(link, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -42,8 +44,12 @@ export default function LoginBox(props) {
   // subfunction to handle login submission
   const handleSubmit = async (e) => {
       e.preventDefault();
-      const data = await loginUser(username, password);
       const element = document.getElementById("message");
+      if (username.length > 100 || password.length > 50) {
+        element.innerHTML =  "Username must be 100 or less character and password must be 50 or less characters.";
+        setTimeout(() => { element.innerHTML =  ""; }, 2000);
+      }
+      const data = await loginUser(username, password);
       if (data.auth) {
         element.innerHTML = "Logged in.";
         setTimeout(() => { props.setToken(data.token) }, 2000);

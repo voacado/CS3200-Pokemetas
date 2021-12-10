@@ -17,6 +17,9 @@ import Logout from './pages/Logout';
 import Navbar from './components/navbar/Navbar';
 import useToken from './hooks/useToken'
 
+/**
+ * Top level component that routes to every other page on the website.
+ */
 function App() {
   const {token, setToken} = useToken();
 
@@ -31,8 +34,8 @@ function App() {
           <Route exact path="/single-team-eval" element={<SingleTeamEval token={token} setToken={setToken}/>}/>
           <Route exact path="/login" element={<Login token={token} setToken={setToken}/>}/>
           <Route exact path="/register" element={<Register token={token} setToken={setToken}/>}/>
-          <Route exact path="/my-profile" element={<Profile />}/>
-          <Route exact path="/change-password" element={<ChangePassword />}/>
+          <Route exact path="/my-profile" element={<Profile token={token} setToken={setToken}/>}/>
+          <Route exact path="/change-password" element={<ChangePassword token={token} setToken={setToken}/>}/>
           <Route exact path="/my-teams" element={<MyTeams token={token} setToken={setToken}/>}/>
           <Route exact path="/logout" element={<Logout token={token} setToken={setToken}/>}/>
 

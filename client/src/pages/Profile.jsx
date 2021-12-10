@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-regular-svg-icons';
-import { NavBtn, NavBtnLink } from '../components/navbar/NavbarStyle';
+import { NavBtnLink } from '../components/navbar/NavbarStyle';
+import Popup from '../components/popup/Popup';
+import { useNavigate } from 'react-router-dom';
+import LoginBox from '../components/form/LoginBox';
 import '../pages-css/Profile.css';
 
 /**
- * Profile Page
+ * Profile Page, shows name and allows you to change password and delete the account here.
+ * 
+ * @param props arguments passed by parent component
  */
-export default function Profile() {
+export default function Profile(props) {
     const [name, setName] = useState();
 
     // gets the username of the logged in user and adds the name to the title
@@ -16,10 +21,23 @@ export default function Profile() {
         setName(`${capitalize(user.username)}'s Profile`);
     }
 
-    // calls getName when component is rendered
+    // calls getName when component is rendered (otherwise would continously call)
     useEffect(() => {
-        getName();
+      if (props.token) getName();
       });
+
+    const navigate = useNavigate();
+    
+    // deletes the user and redirects to home if the delete Account button is pressed.
+    const deleteAndRedirect = async () => { 
+        await deleteUser();
+        navigate('/home');
+        props.setToken("")
+      }
+    
+    if (!props.token) {
+      return <LoginBox setToken={props.setToken} />
+    }
 
     return (
         <div className='profile'>
@@ -30,14 +48,15 @@ export default function Profile() {
             </div>
             <ul className='buttons'>
             <div className='button'>
-            <NavBtn>
                 <NavBtnLink to='/change-password'>Change Password</NavBtnLink>
-            </NavBtn>
             </div>
             <div className='button'>
-            <NavBtn>
-                <NavBtnLink to='/home'>Delete Account</NavBtnLink>
-            </NavBtn>
+                <Popup 
+                    title='Are You Sure You Want To Delete Your Account?' 
+                    text='Delete Account'
+                    text1='Yes'
+                    text2='No'
+                    onClickYes={deleteAndRedirect}></Popup>
             </div>
             </ul>
         </ul>
@@ -51,13 +70,42 @@ function capitalize(string) {
     return string.replace(reg, (w) => w.charAt(0).toUpperCase() + w.slice(1));
   }
 
-async function fetchUsername() {
-    let port = "";
+// request to delete the current user
+async function deleteUser() {
+    let link = "";
     if (window.location.port) {
-        port = `:${window.location.port}`
-    } 
+      link = `http://${window.location.hostname}:${window.location.port}/api/delete-user`
+    } else {
+      link =`https://${window.location.hostname}/api/delete-user`
+    }
 
-    return fetch(`http://${window.location.hostname}${port}/api/profile`, {
+    return fetch(link, {
+        method: 'DELETE'
+    }).then(data => {
+        if (data.ok) {
+          return data.json();
+        } else {
+          console.log(data);
+        }
+      })
+}
+
+// request to fetch the username of the current user
+async function fetchUsername() {
+    let link = "";
+    if (window.location.port) {
+      link = `http://${window.location.hostname}:${window.location.port}/api/profile`
+    } else {
+      link =`https://${window.location.hostname}/api/profile`
+    }
+
+    return fetch(link, {
         method: 'GET'
-    }).then(data => data.json());
+    }).then(data => {
+        if (data.ok) {
+          return data.json();
+        } else {
+          console.log(data);
+        }
+      })
 }

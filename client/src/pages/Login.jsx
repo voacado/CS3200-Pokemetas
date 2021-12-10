@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Navigate } from 'react-router-dom';
 import LoginBox from '../components/form/LoginBox';
 
 /**
- * Login page
+ * Login page that redirects to homepage after login.
+ * 
  * @param props Properties passed from parent component
  */
 function Login(props) {

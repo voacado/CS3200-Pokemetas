@@ -1,10 +1,20 @@
 const {sign, verify} = require("jsonwebtoken");
 
+/**
+ * creates a JWT token to be stored in the cookies for login authetication
+ * 
+ * @param {Integer} userID the id of the user
+ */
 const createTokens = (userID) => {
     return sign({ id: userID }, process.env.JWT_SECRET);
-    // return sign({ id: userID }, '3k243hfsdih5f');
 }
 
+/**
+ * Given an instance of a request, checks that their JWT token is valid
+ * 
+ * @param req where the request came from
+ * @param res where the response will be sent to
+ */
 const validateToken = (req, res) => {
     const token = req.cookies["accessToken"];
 
@@ -25,6 +35,11 @@ const validateToken = (req, res) => {
     }
 }
 
+/**
+ * Gets the user id out of the JWT token
+ * 
+ * @param req where the request came from
+ */
 const getId = (req) => {
     const token = req.cookies["accessToken"];
     return verify(token, process.env.JWT_SECRET).id;

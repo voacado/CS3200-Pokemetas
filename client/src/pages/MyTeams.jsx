@@ -1,6 +1,5 @@
 import React from 'react';
 import LoginBox from '../components/form/LoginBox';
-import useToken from '../hooks/useToken';
 import TeamsList from '../components/teams_list/TeamsList';
 
 function MyTeams(props) {
