@@ -15,7 +15,7 @@ import {
   * @param {String} password 
   */
 async function registerUser(username, password) {
-  return fetch(`http://${window.location.hostname}:${window.location.port}/api/register`, {
+  return fetch(`https://${window.location.hostname}:${window.location.port}/api/register`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
