@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 function TeamsList() {
@@ -54,18 +55,31 @@ function TeamsList() {
   }
 
   const createPokemonDataTableHelper = (pokemonTeams, i) => {
+    // data = info with table HTML
     var data = []
+    // rawData = pure pokemon team to team id array
+    var rawData = []
+
     data.push(<td> {i + 1} </td>)
     // For each Pokemon:
     for (var p = 0; p < 6; p++) {
       if (typeof pokemonTeams[i][0][p] === 'undefined') {
         data.push(<td> </td>)
       } else {
-        console.log(pokemonTeams[i][0][p].species);
+        // console.log(pokemonTeams[i][0][p].species);
         data.push(<td> {pokemonTeams[i][0][p].species} </td>)
+        rawData.push(pokemonTeams[i][0][p].species)
       }
       // data.push(<td> {pokemonTeams[i][0]} </td>)
     }
+    // console.log(rawData)
+
+    data.push(<td>
+      <Link 
+        to="/single-team-eval"
+        state= {{pokeTeam: rawData}}
+      >
+      <button> Eval </button></Link></td>)
     return data;
   }
 

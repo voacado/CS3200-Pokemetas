@@ -136,6 +136,12 @@ app.get("/teamIDToPokemon", express.json(), (req, res) => {
 // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname, "../client/build")));
 
+// All other GET requests not handled before will return our React app
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
+});
+
+// Send register user data
 app.post("/api/register", express.json(), (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
