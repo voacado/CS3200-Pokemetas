@@ -2,8 +2,8 @@
 
 const path = require("path");
 const express = require("express");
-const mysql = require("mysql");
 const { response, json } = require("express");
+const mysql = require("mysql");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");

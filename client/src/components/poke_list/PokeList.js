@@ -49,28 +49,32 @@ function PokeList({ data, dataMap }) {
   }
 
   return (
-    <div>
-      <SearchBar placeholder="Enter Pokemon Name" data={data} props={handleAdd} />
-      <div className="poke-list-overall">
-        {list.length !== 0 && (
-          <div className="poke-list">
-            {list.map((pokemon, listIndex) => {
-              return <div className="indiv-item">
-                <li className="indiv-item">
-                  <div class="img-container">
-                    <img className="poke-image" src={getPokeObj(pokemon).sprite}></img>
+    <div className="three-component">
+      <div className="side-by-side-container">
+        <div className="top-down-container">
+          <SearchBar placeholder="Enter Pokemon Name" data={data} props={handleAdd} />
+          <div className="poke-list-overall">
+            {list.length !== 0 && (
+              <div className="poke-list">
+                {list.map((pokemon, listIndex) => {
+                  return <div className="indiv-item">
+                    <li className="indiv-item">
+                      <div class="img-container">
+                        <img className="poke-image" src={getPokeObj(pokemon).sprite}></img>
+                      </div>
+                      {pokemon}
+                      <div className="remove-icon" onClick={() => handleRemove(listIndex)}>
+                        <FontAwesomeIcon icon={faTrash} size="1x" id="clearBtn" />
+                      </div>
+                    </li>
                   </div>
-                  {pokemon}
-                  <div className="remove-icon" onClick={() => handleRemove(listIndex)}>
-                    <FontAwesomeIcon icon={faTrash} size="1x" id="clearBtn" />
-                  </div>
-                </li>
+                })}
               </div>
-            })}
+            )}
           </div>
-        )}
+        </div>
+        <SingleTeamTypeChart className="type-chart" listOfPokemon={list}></SingleTeamTypeChart>
       </div>
-      <SingleTeamTypeChart listOfPokemon={list}></SingleTeamTypeChart>
     </div>
   )
 }

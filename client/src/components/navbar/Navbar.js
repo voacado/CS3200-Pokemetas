@@ -61,14 +61,11 @@ const Navbar = (props) => {
           <NavLink to='/about' activestyle="false">
             About
           </NavLink>
+          <NavLink to='/my-teams' activestyle="true">
+            My Teams
+          </NavLink>
           <NavLink to='/single-team-eval' activestyle="true">
-            Team
-          </NavLink>
-          <NavLink to='/compare-teams' activestyle="true">
-            Compare Teams
-          </NavLink>
-          <NavLink to='/search-bar' activestyle="true">
-            (Search Bar goes here)
+            Team Evaluator
           </NavLink>
         </NavMenu>
         {displayCorrectIcon}

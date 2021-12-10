@@ -43,7 +43,7 @@ function SearchBar({placeholder, data, props}) {
 
   return (
     <div className="search">
-      {/* <h1>{props} Hello</h1> */}
+      <p className="title"> <ins> Weakness Evaluator </ins> </p>
       <div className="searchInputs">
         <input type="text" placeholder={placeholder} value={wordEntered} onChange={handleFilter}/>
         <div className="searchIcon" onClick={clearInput}>

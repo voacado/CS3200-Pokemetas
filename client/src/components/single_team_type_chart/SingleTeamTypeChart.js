@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import './SingleTeamTypeChartStyle.css'
+// import {Table} from './SingleTeamTypeChartStyle.js'
 
 /**
   * Async function call to backend API repsonsible for getting the type of a Pokemon.
@@ -102,7 +103,9 @@ function SingleTeamTypeChart(listOfPokemon) {
   const [pokemonData, setPokemonData] = React.useState(listOfPokemon.listOfPokemon.length);
   const pokemonDataRef = useRef(pokemonData);
 
-  // Call to fetch new data (async call)
+  /**
+   * Call to fetch new data (async call)
+   */
   const fetchData = async () => { 
     // NOTE: the Object "listOfPokemon" contains a single element (array) titled "listOfPokemon"
     const data = await getTypeRow(listOfPokemon.listOfPokemon);
@@ -124,54 +127,93 @@ function SingleTeamTypeChart(listOfPokemon) {
   // Effect only fetches new data when count pokemonData has changed
   useEffect(() => {
     fetchData();
+    // updateBackground(tableData)
   }, [pokemonData]);
-
-  // Helper method to create rows for the table (regarding indiv Pokemon weaknesses):
-  const createPokemonTypeRows = (index) => {
-    // Error checks, should not attempt to create table if no data exists
-    if (tableData.length > 0 && index != undefined) {
+  
+  /**
+   * Create HTML code representing a table for the type-effectiveness table
+   * @param {Array} tableData - list of Pokemon and their type effectivenesses (table to be visualized)
+   * @returns HTML code representing a table
+   */
+  const createDataRows = (tableData) => {
+    if (tableData.length > 0) {
       var rows = []
+
+      // This function fills in data left to right for each row (row = element)
       // For each element/type
       for (var i = 0; i < 18; i++) {
-        // Index leads to the effect int compared to each type
-        rows.push(<tr> {tableData[index][1][0][0][i].effect} </tr>)
+        rows.push(<tr>{createDataRowsHelper(tableData, i)}</tr>)
       }
       return rows
     }
   }
 
-    // Helper method to create rows for the table (regarding types):
-    const createTypeRows = () => {
-      if (tableData.length > 0) {
-        var rows = []
-        // For each element/type
-        for (var i = 0; i < 18; i++) {
-          // Index leads to the name of each type for the first Pokemon
-          var word = tableData[0][1][0][0][i].type_attack
-          // Capitalize the first letter
-          rows.push(<tr> {word[0].toUpperCase() + word.slice(1)} </tr>)
-        }
-        return rows
+  /**
+   * Helper method for createDataRows() that parses and creates HTML table code for each individual row (based on i)
+   * @param {Array} tableData - list of Pokemon and their type effectivenesses (table to be visualized)
+   * @param {int} i - index of current row (type) to be parsed
+   * @returns HTML code representing a table row (<tr>)
+   */
+  const createDataRowsHelper = (tableData, i) => {
+    var tempData = []
+    var typeAttack = tableData[0][1][0][0][i].type_attack
+    tempData.push(<td> {typeAttack.charAt(0).toUpperCase() + typeAttack.slice(1)} </td>)
+    // For each Pokemon, append type weakness for this type
+    // TODO: always show 6 pokemon, but leave blank if empty
+    tableData.map((item, index) => {
+      var val = tableData[index][1][0][0][i].effect
+      if (val == 4) {
+        tempData.push(<td style={{color: "#870000"}}><b> {tableData[index][1][0][0][i].effect + "x"} </b></td>)
+      } else if (val == 2) {
+        tempData.push(<td style={{color: "#BF0000"}}><b> {tableData[index][1][0][0][i].effect + "x"} </b></td>)
+      } else if (val == 1) {
+        // tempData.push(<td> {tableData[index][1][0][0][i].effect} </td>)
+        tempData.push(<td>  </td>)
+      } else if (val == 0.5) {
+        tempData.push(<td style={{color: "#008000"}}><b> {tableData[index][1][0][0][i].effect + "x"} </b></td>)
+      } else if (val == 0.25) {
+        tempData.push(<td style={{color: "#008C00"}}><b> {tableData[index][1][0][0][i].effect + "x"} </b></td>)
+      } else {
+        // val == 0
+        tempData.push(<td style={{color: "#007676"}}><b> {tableData[index][1][0][0][i].effect + "x"} </b></td>)
+      }
+    })
+
+    var numPokemon = tableData.length
+    var remEmpty = 6 - numPokemon
+    for (var i = 0; i < remEmpty; i++) {
+      tempData.push(<td></td>)
+    }
+
+    console.log(tempData)
+    return tempData;
+  }
+
+  const createPokeNameRows = (tableData) => {
+    var nameData = []
+
+    for (var i = 0; i < 6; i++) {
+      if (typeof tableData[i] === 'undefined') {
+        nameData.push(<th> </th>)
+      } else {
+        nameData.push(<th> {tableData[i][0]} </th>)    
       }
     }
+    return nameData;
+  }
 
   return (
     <div id="chart" className="single-team-type-chart">
-      <table>
+      <table className="container">
         <thead>
           {/* Only show table if Pokemon is in list */}
-          {tableData.length > 0 && <th> Types </th>}
+          {/* {updateBackground(tableData)} */}
+          {tableData.length > 0 && <th>  </th>}
           {/* List Pokemon names */}
-          {tableData.map((item) => {
-            return <th> {item[0]} </th>
-          })}
+          {tableData.length > 0 && createPokeNameRows(tableData)}
         </thead>
         <tbody>
-          {/* List Pokemon stats */}
-          <td> {createTypeRows()} </td>
-          {tableData.map((item, index) => {
-            return <td> {createPokemonTypeRows(index)} </td>
-          })}
+          {createDataRows(tableData)}
         </tbody>
       </table>
     </div>

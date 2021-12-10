@@ -2,6 +2,7 @@ const {sign, verify} = require("jsonwebtoken");
 
 const createTokens = (userID) => {
     return sign({ id: userID }, process.env.JWT_SECRET);
+    // return sign({ id: userID }, '3k243hfsdih5f');
 }
 
 const validateToken = (req, res, next) => {

@@ -1,7 +1,9 @@
 .single-team-eval {
   /* background-image: url('../images/wallpapers/bulbasaurBG.png');
   background-color: #6EA27F; */
-  background: #6EA27F url('../images/wallpapers/bulbasaurBG.png') no-repeat bottom center;
+  /* background: #6EA27F url('../images/wallpapers/bulbasaurBG.png') no-repeat bottom center; */
+  /* transform: scaleX(-1); */
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('../images/wallpapers/bulbasaurBG.png') no-repeat bottom center;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -10,6 +12,7 @@
   position: absolute;
   width: 100vw;
   height: calc(100vh - 85px);
+  overflow: hidden;
 }
 
 .green-bg {
