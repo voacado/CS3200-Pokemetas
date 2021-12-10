@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Navigate } from 'react-router-dom';
 import FormBox from '../components/form/FormBox';
+import LoginBox from '../components/form/LoginBox';
 
 /**
  * Page to change your password
@@ -34,14 +34,18 @@ function ChangePassword(props) {
             }
     }
 
-        return <FormBox title='Change Password' 
-        handleSubmit={handleSubmit} 
-        topName="Password"
-        bottomName="Confirm Password"
-        topType="password"
-        bottomType="password"
-        setTop={setPassword} 
-        setBottom={setConfirm}/>  
+    if (!props.token) {
+      return <LoginBox setToken={props.setToken} />
+    }
+
+    return <FormBox title='Change Password' 
+    handleSubmit={handleSubmit} 
+    topName="Password"
+    bottomName="Confirm Password"
+    topType="password"
+    bottomType="password"
+    setTop={setPassword} 
+    setBottom={setConfirm}/>  
 }
 
 /**
