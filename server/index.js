@@ -154,7 +154,7 @@ app.post("/api/register", express.json(), (req, res) => {
       res.cookie("accessToken", token, {
         maxAge: 2592000000,
       });
-      res.json( {registered: true, token: token} );
+      res.json( {registered: true, message: result.MESSAGE, token: token} );
     } else {
       res.json( {registered: false, message: result.MESSAGE} );
     }
@@ -191,6 +191,22 @@ app.get("/api/profile", (req, res) => {
       res.json({ username: results[0].username});
     });
   } 
+});
+
+app.put("/api/change-password", (req, res) => {
+  if (validateToken) {
+    const password = req.body.password;
+    const id = getId(req);
+    connection.query("CALL change_password(?,?)", [id, password], (err, results) => {
+      if (err) console.log(err);
+      const result = results[0][0];
+      if (result.MESSAGE === 'Password has been changed.') {
+        res.json({success: true, message: result.MESSAGE});
+      } else {
+        res.json({success: false, message: result.MESSAGE});
+      }
+    });
+  }
 });
 
 // All other GET requests not handled before will return our React app

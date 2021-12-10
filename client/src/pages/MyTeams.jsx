@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
-import LoginBox from '../components/login_and_register/LoginBox';
+import React from 'react';
+import LoginBox from '../components/form/LoginBox';
 import useToken from '../hooks/useToken';
 import TeamsList from '../components/teams_list/TeamsList';
 
 function MyTeams(props) {
-    const {token, setToken} = useToken();
-
     // If user is not signed in, prompt the user to sign-in
-    if(!token) {
-        return <LoginBox setToken={setToken} />
+    if(!props.token) {
+        return <LoginBox setToken={props.setToken} />
     }
 
     return (
