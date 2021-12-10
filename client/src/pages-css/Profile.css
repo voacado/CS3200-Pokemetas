@@ -23,11 +23,11 @@
 }
 
 .buttons {
-  align-items: center;
-  justify-content: center;
   z-index: 1;
+  padding-top: 90px;
+  padding-left: 70px;
 }
 
 .button {
-  margin-bottom: 10px;
+  margin-bottom: 50px;
 }

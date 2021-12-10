@@ -23,4 +23,9 @@ const validateToken = (req, res, next) => {
     }
 }
 
-module.exports = { createTokens, validateToken };
+const getId = (req) => {
+    const token = req.cookies["accessToken"];
+    return verify(token, process.env.JWT_SECRET).id;
+};
+
+module.exports = { createTokens, validateToken, getId };

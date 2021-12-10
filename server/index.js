@@ -7,7 +7,7 @@ const mysql = require("mysql");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
-const { createTokens } = require("./jwt");
+const { createTokens, validateToken, getId } = require("./jwt");
 const bodyParser = require('body-parser');
 
 const PORT = process.env.PORT || 3001;
@@ -154,6 +154,12 @@ app.post("/api/login", express.json(), (req, res) => {
   });
 });
 
+app.get("/api/profile", validateToken, (req, res) => {
+  const id = getId(req);
+  connection.query("SELECT username FROM member WHERE member_id=?", id, (err, results) => {
+    res.json(result[0].username);
+  });
+});
 
 
 app.listen(PORT, () => {
