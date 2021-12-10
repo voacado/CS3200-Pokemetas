@@ -16,7 +16,7 @@ import {
   */
 async function loginUser(username, password) {
   console.log(`${window.location.hostname}:${window.location.port}`)
-  return fetch(`http://${window.location.hostname}:${window.location.port}/api/login`, {
+  return fetch(`https://${window.location.hostname}:${window.location.port}/api/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
