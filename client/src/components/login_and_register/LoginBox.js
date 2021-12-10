@@ -15,8 +15,12 @@ import {
   * @param {String} password 
   */
 async function loginUser(username, password) {
-  console.log(`${window.location.hostname}:${window.location.port}`)
-  return fetch(`http://${window.location.hostname}/api/login`, {
+  let port = "";
+  if (window.location.port) {
+    port = `:${window.location.port}`
+  } 
+
+  return fetch(`http://${window.location.hostname}${port}/api/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

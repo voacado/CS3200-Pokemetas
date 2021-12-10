@@ -8,4 +8,26 @@
   position: absolute;
   width: 100vw;
   height: calc(100vh - 85px);
+  overflow: hidden;
+}
+
+.sidewaysList {
+  display: flex;
+  flex-direction: row;
+}
+
+.profilePic {
+  color: #fff;
+  padding: 10rem;
+  transform: scale(15);
+}
+
+.buttons {
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.button {
+  margin-bottom: 10px;
 }
