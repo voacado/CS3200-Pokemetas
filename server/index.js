@@ -200,7 +200,7 @@ app.post("/api/login", express.json(), (req, res) => {
 });
 
 // request to get the username of the requested user 
-app.get("/api/profile", (req, res) => {
+app.get("/api/my-profile", (req, res) => {
   if (validateToken) {
     const id = getId(req);
     connection.query("SELECT username FROM member WHERE member_id=?", id, (err, results) => {

@@ -13,7 +13,7 @@ import '../pages-css/Profile.css';
  * @param props arguments passed by parent component
  */
 export default function Profile(props) {
-    const [name, setName] = useState();
+    const [name, setName] = useState("Profile");
 
     // gets the username of the logged in user and adds the name to the title
     const getName = async () => {
@@ -94,9 +94,9 @@ async function deleteUser() {
 async function fetchUsername() {
     let link = "";
     if (window.location.port) {
-      link = `http://${window.location.hostname}:${window.location.port}/api/profile`
+      link = `http://${window.location.hostname}:${window.location.port}/api/my-profile`
     } else {
-      link =`https://${window.location.hostname}/api/profile`
+      link =`https://${window.location.hostname}/api/my-profile`
     }
 
     return fetch(link, {
