@@ -203,6 +203,22 @@ app.put("/api/change-password", (req, res) => {
   }
 });
 
+app.delete("/api/delete-user", (req, res) => {
+  if (validateToken) {
+    const id = getId(req);
+    connection.query("CALL delete_user(?)", id, (err, results) => {
+      if (err) console.log(err);
+      const result = results[0][0];
+      if (result.MESSAGE === 'User has been deleted.') {
+        res.clearCookie("accessToken")
+        res.json({deleted: true, message: result.MESSAGE});
+      } else {
+        res.json({deleted: false, message: result.MESSAGE});
+      }
+    });
+  }
+});
+
 // All other GET requests not handled before will return our React app
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));

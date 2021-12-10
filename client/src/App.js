@@ -31,7 +31,7 @@ function App() {
           <Route exact path="/single-team-eval" element={<SingleTeamEval />}/>
           <Route exact path="/login" element={<Login token={token} setToken={setToken}/>}/>
           <Route exact path="/register" element={<Register token={token} setToken={setToken}/>}/>
-          <Route exact path="/my-profile" element={<Profile />}/>
+          <Route exact path="/my-profile" element={<Profile setToken={setToken}/>}/>
           <Route exact path="/change-password" element={<ChangePassword />}/>
           <Route exact path="/my-teams" element={<MyTeams token={token} setToken={setToken}/>}/>
           <Route exact path="/logout" element={<Logout token={token} setToken={setToken}/>}/>

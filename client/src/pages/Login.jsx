@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import LoginBox from '../components/login_and_register/LoginBox';
+import LoginBox from '../components/form/LoginBox';
 
 /**
  * Login page

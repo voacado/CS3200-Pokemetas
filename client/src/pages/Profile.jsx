@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-regular-svg-icons';
-import { NavBtn, NavBtnLink } from '../components/navbar/NavbarStyle';
+import { NavBtnLink } from '../components/navbar/NavbarStyle';
+import Popup from '../components/popup/Popup';
+import { useNavigate } from 'react-router-dom';
 import '../pages-css/Profile.css';
 
 /**
  * Profile Page
  */
-export default function Profile() {
+export default function Profile(props) {
     const [name, setName] = useState();
 
     // gets the username of the logged in user and adds the name to the title
@@ -21,6 +23,14 @@ export default function Profile() {
         getName();
       });
 
+    const navigate = useNavigate();
+
+    const deleteAndRedirect = async () => { 
+        await deleteUser();
+        navigate('/home');
+        props.setToken("")
+      }
+
     return (
         <div className='profile'>
         <h1 id='title'>{name}</h1>
@@ -30,14 +40,15 @@ export default function Profile() {
             </div>
             <ul className='buttons'>
             <div className='button'>
-            <NavBtn>
                 <NavBtnLink to='/change-password'>Change Password</NavBtnLink>
-            </NavBtn>
             </div>
             <div className='button'>
-            <NavBtn>
-                <NavBtnLink to='/home'>Delete Account</NavBtnLink>
-            </NavBtn>
+                <Popup 
+                    title='Are You Sure You Want To Delete Your Account?' 
+                    text='Delete Account'
+                    text1='Yes'
+                    text2='No'
+                    onClickYes={deleteAndRedirect}></Popup>
             </div>
             </ul>
         </ul>
@@ -50,6 +61,17 @@ function capitalize(string) {
     var reg = /\b([a-zÁ-ú]{3,})/g;
     return string.replace(reg, (w) => w.charAt(0).toUpperCase() + w.slice(1));
   }
+
+async function deleteUser() {
+    let port = "";
+    if (window.location.port) {
+        port = `:${window.location.port}`
+    } 
+
+    return fetch(`http://${window.location.hostname}${port}/api/delete-user`, {
+        method: 'DELETE'
+    }).then(data => data.json());
+}
 
 async function fetchUsername() {
     let port = "";
