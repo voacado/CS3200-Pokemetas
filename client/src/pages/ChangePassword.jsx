@@ -53,12 +53,14 @@ function ChangePassword(props) {
   * @param {String} password 
   */
  async function editPass(password) {
-    let port = "";
+    let link = "";
     if (window.location.port) {
-      port = `:${window.location.port}`
-    } 
+      link = `http://${window.location.hostname}:${window.location.port}/api/change-password`
+    } else {
+      link =`https://${window.location.hostname}/api/change-password`
+    }
   
-    return fetch(`http://${window.location.hostname}${port}/api/change-password`, {
+    return fetch(link, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'

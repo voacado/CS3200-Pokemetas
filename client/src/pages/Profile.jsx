@@ -72,12 +72,14 @@ function capitalize(string) {
 
 // request to delete the current user
 async function deleteUser() {
-    let port = "";
+    let link = "";
     if (window.location.port) {
-        port = `:${window.location.port}`
-    } 
+      link = `http://${window.location.hostname}:${window.location.port}/api/delete-user`
+    } else {
+      link =`https://${window.location.hostname}/api/delete-user`
+    }
 
-    return fetch(`http://${window.location.hostname}${port}/api/delete-user`, {
+    return fetch(link, {
         method: 'DELETE'
     }).then(data => {
         if (data.ok) {
@@ -90,12 +92,14 @@ async function deleteUser() {
 
 // request to fetch the username of the current user
 async function fetchUsername() {
-    let port = "";
+    let link = "";
     if (window.location.port) {
-        port = `:${window.location.port}`
-    } 
+      link = `http://${window.location.hostname}:${window.location.port}/api/profile`
+    } else {
+      link =`https://${window.location.hostname}/api/profile`
+    }
 
-    return fetch(`http://${window.location.hostname}${port}/api/profile`, {
+    return fetch(link, {
         method: 'GET'
     }).then(data => {
         if (data.ok) {

@@ -53,12 +53,14 @@ function Register(props) {
   * @param {String} password 
   */
  async function registerUser(username, password) {
-    let port = "";
+    let link = "";
     if (window.location.port) {
-      port = `:${window.location.port}`
-    } 
-  
-    return fetch(`http://${window.location.hostname}${port}/api/register`, {
+      link = `http://${window.location.hostname}:${window.location.port}/api/register`
+    } else {
+      link =`https://${window.location.hostname}/api/register`
+    }
+
+    return fetch(link, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

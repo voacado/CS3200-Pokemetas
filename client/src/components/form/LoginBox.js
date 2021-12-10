@@ -15,12 +15,14 @@ import {
   * @param {String} password 
   */
  async function loginUser(username, password) {
-  let port = "";
+  let link = "";
   if (window.location.port) {
-    port = `:${window.location.port}`
-  } 
+    link = `http://${window.location.hostname}:${window.location.port}/api/login`
+  } else {
+    link =`https://${window.location.hostname}/api/login`
+  }
 
-  return fetch(`http://${window.location.hostname}${port}/api/login`, {
+  return fetch(link, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
