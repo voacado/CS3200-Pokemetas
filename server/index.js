@@ -106,18 +106,6 @@ app.get("/indivPokemonTypes", express.json(), (req, res) => {
   });
 });
 
-// connection.end()
-
-// connection.query("SELECT * FROM heroku_db4deb156bbb8bb.pokemon_species", function (error, results, fields) {
-//   if (error) {
-//     console.log("error: ", err);
-//     throw error;
-//   }
-//   response.send("The solution is: ", results[0].solution);
-// });
-
-
-
 // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname, "../client/build")));
 

@@ -111,26 +111,21 @@ export const NavBtn = styled.nav`
 
 export const NavBtnLink = styled(Link)`
   border-radius: 4px;
-  // background: #4470BD;
-  // padding: 10px 22px;
+  background: #4470BD;
+  padding: 10px 22px;
   color: #fff;
   outline: none;
   border: none;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  transition: filter 1s;
   text-decoration: none;
 
   height: auto;
   width: auto;
 
-  /* Second Nav */
   margin-left: 24px;
 
   &:hover {
-    // transition: all 0.2s ease-in-out;
-    // background: #fff;
-    // color: #010606;
-    transform: scale(1.3);
-    // filter: grayscale(0) invert(0) sepia(100%) hue-rotate(270deg) saturate(100%);
+    filter: brightness(1.3);
   }
 `;

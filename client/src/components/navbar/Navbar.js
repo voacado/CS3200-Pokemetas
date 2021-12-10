@@ -28,7 +28,7 @@ const Navbar = (props) => {
         <NavBtn>
         <MenuIcon icon={<FontAwesomeIcon icon={faUserCircle} />}>
             <DropdownMenu>
-              <DropdownItem leftIcon={<FontAwesomeIcon icon={faUserCircle} />}>My Profile</DropdownItem>
+              <DropdownItem leftIcon={<FontAwesomeIcon icon={faUserCircle} />} link='/my-profile'>My Profile</DropdownItem>
               <DropdownItem leftIcon={<FontAwesomeIcon icon={faUsers} />} link='/my-teams'>My Teams</DropdownItem>
               <DropdownItem 
                 leftIcon={<FontAwesomeIcon icon={faSignOutAlt} />} 
