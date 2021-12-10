@@ -5,21 +5,23 @@ const createTokens = (userID) => {
     // return sign({ id: userID }, '3k243hfsdih5f');
 }
 
-const validateToken = (req, res, next) => {
+const validateToken = (req, res) => {
     const token = req.cookies["accessToken"];
 
     if (!token) {
-        res.status(400).json({Error: "User not authenticated."});
+        res.status(400).json("User not authenticated.");
+        return false;
     }
 
     try {
         const validToken = verify(token, process.env.JWT_SECRET)
         if (validToken) {
             req.authenticated = true;
-            return next();
+            return true;
         }
     } catch(err) {
-        return res.status(400).json({Error: err});
+        res.status(400).json({Error: err});
+        return false;
     }
 }
 

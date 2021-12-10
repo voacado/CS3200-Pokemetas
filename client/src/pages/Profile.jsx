@@ -1,47 +1,55 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-regular-svg-icons';
 import { NavBtn, NavBtnLink } from '../components/navbar/NavbarStyle';
 import '../pages-css/Profile.css';
 
+/**
+ * Profile Page
+ */
 export default function Profile() {
+    const [name, setName] = useState();
 
-    const getName = async e => {
-        e.preventDefault();
-        return fetchUsername();
+    // gets the username of the logged in user and adds the name to the title
+    const getName = async () => {
+        const user = await fetchUsername();
+        setName(`${capitalize(user.username)}'s Profile`);
     }
+
+    // calls getName when component is rendered
+    useEffect(() => {
+        getName();
+      });
 
     return (
         <div className='profile'>
-        <h1>{getName}'s Profile</h1>
+        <h1 id='title'>{name}</h1>
         <ul className='sidewaysList'>
-            <ProfilePic />
+            <div className='profilePic'>
+                <FontAwesomeIcon icon={faUserCircle}></FontAwesomeIcon>
+            </div>
             <ul className='buttons'>
-                <Button link='/change-password' text='Change Password'></Button>
-                <Button link='/home' text='Delete Account'></Button>
+            <div className='button'>
+            <NavBtn>
+                <NavBtnLink to='/change-password'>Change Password</NavBtnLink>
+            </NavBtn>
+            </div>
+            <div className='button'>
+            <NavBtn>
+                <NavBtnLink to='/home'>Delete Account</NavBtnLink>
+            </NavBtn>
+            </div>
             </ul>
         </ul>
         </div>
     )
 }
 
-function ProfilePic() {
-    return (
-        <div className='profilePic'>
-        <FontAwesomeIcon icon={faUserCircle}></FontAwesomeIcon>
-        </div>
-    )
-}
-
-function Button(props) {
-    return (
-        <div className='button'>
-        <NavBtn>
-            <NavBtnLink to={props.link}>{props.text}</NavBtnLink>
-        </NavBtn>
-        </div>
-    )
-}
+// capitalizes every word in a string
+function capitalize(string) {
+    var reg = /\b([a-zÁ-ú]{3,})/g;
+    return string.replace(reg, (w) => w.charAt(0).toUpperCase() + w.slice(1));
+  }
 
 async function fetchUsername() {
     let port = "";
@@ -50,9 +58,6 @@ async function fetchUsername() {
     } 
 
     return fetch(`http://${window.location.hostname}${port}/api/profile`, {
-        method: 'GET',
-        headers: {
-        'Content-Type': 'application/json'
-        }
-    }).then(data => data.json())
+        method: 'GET'
+    }).then(data => data.json());
 }

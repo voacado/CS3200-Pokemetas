@@ -136,12 +136,15 @@ app.get("/teamIDToPokemon", express.json(), (req, res) => {
 // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname, "../client/build")));
 
+<<<<<<< HEAD
+=======
 // All other GET requests not handled before will return our React app
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
 });
 
 // Send register user data
+>>>>>>> e3ef425033085780d78e4f7e120ac60d8eafec2c
 app.post("/api/register", express.json(), (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
@@ -183,11 +186,19 @@ app.post("/api/login", express.json(), (req, res) => {
   });
 });
 
-app.get("/api/profile", validateToken, (req, res) => {
-  const id = getId(req);
-  connection.query("SELECT username FROM member WHERE member_id=?", id, (err, results) => {
-    res.json(result[0].username);
-  });
+app.get("/api/profile", (req, res) => {
+  if (validateToken) {
+    const id = getId(req);
+    connection.query("SELECT username FROM member WHERE member_id=?", id, (err, results) => {
+      if (err) console.log(err);
+      res.json({ username: results[0].username});
+    });
+  } 
+});
+
+// All other GET requests not handled before will return our React app
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
 });
 
 // Inform (to console) that server port has opened
