@@ -15,7 +15,7 @@ import {
   * @param {String} password 
   */
 async function loginUser(username, password) {
-  return fetch('http://localhost:3000/api/login', {
+  return fetch(`http://${window.location.hostname}:${window.location.port}/api/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

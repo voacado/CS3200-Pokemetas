@@ -7,7 +7,8 @@ import Home from './pages/Home';
 import SingleTeamEval from './pages/SingleTeamEval';
 import NotFound from './pages/NotFound';
 import Login from './pages/Login';
-import Register from './pages/Register'
+import Register from './pages/Register';
+import Profile from './pages/Profile';
 import MyTeams from './pages/MyTeams';
 import About from './pages/About';
 import Logout from './pages/Logout';
@@ -29,6 +30,7 @@ function App() {
           <Route exact path="/single-team-eval" element={<SingleTeamEval />}/>
           <Route exact path="/login" element={<Login token={token} setToken={setToken}/>}/>
           <Route exact path="/register" element={<Register token={token} setToken={setToken}/>}/>
+          <Route exact path="/my-profile" element={<Profile />}/>
           <Route exact path="/my-teams" element={<MyTeams />}/>
           <Route exact path="/logout" element={<Logout token={token} setToken={setToken}/>}/>
 
