@@ -97,7 +97,7 @@ app.get("/indivPokemonTypes", express.json(), (req, res) => {
   // Call: http://localhost:3000/indivPokemonTypes?type=typeNameHere
   // Example: http://localhost:3000/indivPokemonTypes?type=bug
   var poke_name = req.query.name;
-  var sql    = 'SELECT * FROM indiv_pokemon_types WHERE poke_name = ' + connection.escape(poke_name);
+  var sql    = 'SELECT * FROM indiv_pokemon_types WHERE poke_name = ' + poke_name;
   connection.query(sql, (err, result) => {
     if (err) {
       console.log(err);
@@ -128,6 +128,36 @@ app.get("/teamIDToPokemon", express.json(), (req, res) => {
   var teamID = req.query.teamID;
   var sql = `CALL team_id_to_pokemon(${teamID})`;
   connection.query(sql, function (err, result) {
+    if (err) throw err;
+    res.send(result)
+  });
+});
+
+// Register (save) a Pokemon team - query
+app.post("/savePokemonTeam", express.json(), (req, res) => {
+
+  // Params necessary for procedure call
+  var teamName = String(req.query.teamName);
+  var teamDesc = String(req.query.teamDesc);
+  var memberID = getId(req);
+  var poke1 = req.query.poke1;
+  var poke2 = req.query.poke2;
+  var poke3 = req.query.poke3;
+  var poke4 = req.query.poke4;
+  var poke5 = req.query.poke5;
+  var poke6 = req.query.poke6;
+
+  connection.query("CALL add_team(?, ?, ?, ?, ?, ?, ?, ?, ?)", [teamName, teamDesc, memberID, poke1, poke2, poke3, poke4, poke5, poke6], function (err, result) {
+    if (err) throw err;
+    res.send(result)
+  });
+});
+
+// Delete a saved Pokemon team - query
+app.put("/deletePokemonTeam", express.json(), (req, res) => {
+  var teamID = req.query.teamID;
+
+  connection.query("CALL delete_team(?)", [teamID], function (err, result) {
     if (err) throw err;
     res.send(result)
   });

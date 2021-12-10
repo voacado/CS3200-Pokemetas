@@ -4,8 +4,11 @@ import PokeList from '../components/poke_list/PokeList';
 import '../pages-css/SingleTeamEval.css';
 import { useLocation } from "react-router";
 
-
-function SingleTeamEval() {
+/**
+ * Evaluates a team of Pokemon (6) based on their elemental weaknesses and strengths.
+ * @param {Array} props - state of the Pokemon list (can be used to pre-load teams)
+ */
+function SingleTeamEval(props) {
 
     // If this page is loaded via "My Teams", then an existing team state is sent.
     // This parses the data that we will send down to the child PokeList.
@@ -53,9 +56,10 @@ function SingleTeamEval() {
         <div className="green-bg">
             <div className="single-team-eval">
                 <div className="ste-container">
-                    {/* {console.log(pokemonTypes)} */}
-                    {/* {console.log(indivPokemonTypesMap)} */}
-                    <PokeList data={pokemonSpecies} dataMap={pokeSpeciesMap} state={existingTeam} />
+                    {/* If data has not been loaded yet, wait. */}
+                    {pokeSpeciesMap && pokeSpeciesMap != null ? (
+                    <PokeList data={pokemonSpecies} dataMap={pokeSpeciesMap} state={existingTeam} propToken={props} />
+                    ) : ("Loading data...")}
                 </div>
             </div>
         </div>

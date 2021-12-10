@@ -1,9 +1,12 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import "./PokeList.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import SearchBar from '../search_bar/SearchBar';
 import SingleTeamTypeChart from '../single_team_type_chart/SingleTeamTypeChart';
+import LoginBox from '../form/LoginBox';
+import axios from 'axios';
 
 
 /**
@@ -11,23 +14,12 @@ import SingleTeamTypeChart from '../single_team_type_chart/SingleTeamTypeChart';
  * @param {Array} data 
  * @returns a React component.
  */
-function PokeList({ data, dataMap, state }) {
+function PokeList({ data, dataMap, state, propToken }) {
 
   // Stores list of Pokemon added
   const [list, setList] = React.useState(state);
-
-  // console.log("State 1: ", state[1])
-  // console.log("List 0: ", list[0])
-  
-  // setList(list.concat(state.pokeTeam));
-
-  // if (typeof state !== 'undefined' || typeof state !== null) {
-    // console.log(list)
-    // for (var i = 0; i < state.pokeTeam.length; i++) {
-      // console.log(state.pokeTeam[i])
-      // setList(arr => [...arr, state.pokeTeam[i]]);
-    // }
-  // }
+  // Navigate object for redirecting
+  const navigate = useNavigate();
 
   /**
    * Add element to list of pokemon
@@ -57,13 +49,58 @@ function PokeList({ data, dataMap, state }) {
    * Given a poke_name, return the object detailing the Pokemon (from the database)
    * @param {String} name 
    */
-  // function getPokeImage(name) {
-    // NOTE: method does not work properly, dataMap remains "undefined" despite async/await calls.
-    // Will investigate over winter break.
-    // In the mean time, the image URL has been parsed as a string literal below.
+  function getPokeImage(name) {
+    // Temporary parse of data
+    var data = dataMap.get(name);
 
-    // return dataMap.get(name).sprite;
-  // }
+    // Check if data has been loaded yet
+    if(data == null) {
+      // If data has not been loaded, do nothing and wait
+    } else {
+      return data.sprite;
+    }
+  }
+
+  /**
+   * Saves the existing team in the team evaluator to the database if logged in, 
+   * otherwise prompt to sign in.
+   */
+  function saveTeam() {
+    // If the user is not signed in, ask them to sign in.
+    if(!propToken.token) {
+      alert("Please sign in to save your team.")
+      // navigate('/login');
+    } else if (list.length <= 0) {
+      // If the user has not added any Pokemon, ask them to do so.
+      alert("Please add Pokemon to the team.")
+    } else {
+      // Params necessary for call to saving procedure
+      var name = prompt("Team Name:");
+      var description = prompt("Team Description:");
+      var poke1 = list[0];
+      var poke2 = list[1];
+      var poke3 = list[2];
+      var poke4 = list[3];
+      var poke5 = list[4];
+      var poke6 = list[5];
+
+      // Asychronous method that calls POST
+      const saveTeam = async () => {
+        let saveData = {
+          'teamName': name,
+          'teamDesc': description, 
+          'poke1': poke1, 
+          'poke2': poke2, 
+          'poke3': poke3, 
+          'poke4': poke4, 
+          'poke5': poke5, 
+          'poke6': poke6
+        }
+        await axios.post('http://localhost:3000/savePokemonTeam', null, { params: saveData }).then(response => response.status);
+      }
+      saveTeam()
+    }
+  }
 
   return (
     <div className="three-component">
@@ -77,7 +114,8 @@ function PokeList({ data, dataMap, state }) {
                   return <div className="indiv-item">
                     <li className="indiv-item">
                       <div class="img-container">
-                        <img className="poke-image" src={`https://play.pokemonshowdown.com/sprites/ani/${pokemon.toLowerCase()}.gif`}></img>
+                        <img className="poke-image" src={getPokeImage(pokemon)}></img>
+                        {/* <img className="poke-image" src={`https://play.pokemonshowdown.com/sprites/ani/${pokemon.toLowerCase()}.gif`}></img> */}
                       </div>
                       {pokemon}
                       <div className="remove-icon" onClick={() => handleRemove(listIndex)}>
@@ -89,6 +127,7 @@ function PokeList({ data, dataMap, state }) {
               </div>
             )}
           </div>
+          <button class="save-button" onClick={saveTeam}>Save Team</button>
         </div>
         <SingleTeamTypeChart className="type-chart" listOfPokemon={list}></SingleTeamTypeChart>
       </div>

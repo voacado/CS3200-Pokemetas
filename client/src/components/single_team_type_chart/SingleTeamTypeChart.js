@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
 import './SingleTeamTypeChartStyle.css'
-// import {Table} from './SingleTeamTypeChartStyle.js'
 
 /**
   * Async function call to backend API repsonsible for getting the type of a Pokemon.
@@ -46,7 +45,6 @@ async function getTypes(listOfPokemon) {
 async function getTypeParity(type1, type2) {
   // Can call for specific data using query
   // Returns object [poke_name: String, poke_type: String]
-
 
   // If type2 is null, then we calculate for one type only
   if (type2 == null) {
@@ -95,6 +93,7 @@ async function getTypeRow(listOfPokemon) {
   return results;
 }
 
+
 function SingleTeamTypeChart(listOfPokemon) {
 
   // Stores table data
@@ -128,7 +127,6 @@ function SingleTeamTypeChart(listOfPokemon) {
   // Effect only fetches new data when count pokemonData has changed
   useEffect(() => {
     fetchData();
-    // updateBackground(tableData)
   }, [pokemonData]);
   
   /**
@@ -186,7 +184,6 @@ function SingleTeamTypeChart(listOfPokemon) {
       tempData.push(<td></td>)
     }
 
-    // console.log(tempData)
     return tempData;
   }
 
@@ -219,7 +216,6 @@ function SingleTeamTypeChart(listOfPokemon) {
       </table>
     </div>
   )
-
 }
 
 export default SingleTeamTypeChart

@@ -28,13 +28,15 @@ function App() {
           <Route exact path="/" element={<Home />} /> 
           <Route exact path="/home" element={<Home />} /> 
           <Route exact path="/about" element={<About />} />
-          <Route exact path="/single-team-eval" element={<SingleTeamEval />}/>
+          <Route exact path="/single-team-eval" element={<SingleTeamEval token={token} setToken={setToken}/>}/>
           <Route exact path="/login" element={<Login token={token} setToken={setToken}/>}/>
           <Route exact path="/register" element={<Register token={token} setToken={setToken}/>}/>
           <Route exact path="/my-profile" element={<Profile />}/>
           <Route exact path="/change-password" element={<ChangePassword />}/>
           <Route exact path="/my-teams" element={<MyTeams token={token} setToken={setToken}/>}/>
           <Route exact path="/logout" element={<Logout token={token} setToken={setToken}/>}/>
+
+          
 
           <Route path="/404" element={<NotFound />} />
           <Route path="*" element={<Navigate replace to="/404" />} />
