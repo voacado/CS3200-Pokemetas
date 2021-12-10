@@ -108,10 +108,13 @@ app.get("/indivPokemonTypes", express.json(), (req, res) => {
 
 // Get a user's teams - query
 app.get("/userToTeamID", express.json(), (req, res) => {
-  // Call: http://localhost:3000/userToTeamID?userID={userIDNumber}
-  // Example: http://localhost:3000/userToTeamID?userID=2
-  var userID = req.query.userID;
+  // Call: http://localhost:3000/userToTeamID
+  // Example: http://localhost:3000/userToTeamID
+  var userID = getId(req);
+
+  // console.log("ID: ", userID);
   var sql = `CALL user_to_team_ids(${userID})`;
+  // var sql = `CALL user_to_team_ids(2)`;
   connection.query(sql, function (err, result) {
     if (err) throw err;
     res.send(result)

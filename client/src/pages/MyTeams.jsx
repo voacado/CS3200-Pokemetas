@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import LoginBox from '../components/login_and_register/LoginBox';
 import useToken from '../hooks/useToken';
+import TeamsList from '../components/teams_list/TeamsList';
 
 function MyTeams(props) {
     const {token, setToken} = useToken();
@@ -11,7 +12,10 @@ function MyTeams(props) {
     }
 
     return (
-        <h1>My Teams</h1>
+        <div>
+            <h1>My Teams</h1>
+            <TeamsList />
+        </div>
     );
 }
 
