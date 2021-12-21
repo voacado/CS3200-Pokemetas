@@ -1,5 +1,0 @@
-HOST='localhost'
-USERNAME='root'
-PASSWORD='password'
-DATABASE='pokemon'
-JWT_SECRET='3k243hfsdih5f'
