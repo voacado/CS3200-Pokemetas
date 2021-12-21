@@ -3,7 +3,7 @@
 const path = require("path");
 const express = require("express");
 const { response, json } = require("express");
-const mysql = require("mysql");
+const mysql = require("mysql2");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
@@ -22,47 +22,31 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-
 // MySQL connection
-var connection;
-
-function handleDisconnect() {
-  // Recreate the connection, since the old one cannot be reused.
-  // connection = mysql.createConnection(process.env.CLEARDB_DATABASE_URL);
-  connection = mysql.createConnection(process.env.CLEARDB_DATABASE_URL);
-
-  connection.connect(function(err) {              // The server is either down
-    if(err) {                                     // or restarting (takes a while sometimes).
-      //console.log("error when connecting to db:", err);
-      setTimeout(handleDisconnect, 2000); // We introduce a delay before attempting to reconnect,
-    }                                     // to avoid a hot loop, and to allow our node script to
-  });                                     // process asynchronous requests in the meantime.
-                                          // If you"re also serving http, display a 503 error.
-  connection.on("error", function(err) {
-    if(err.code === "PROTOCOL_CONNECTION_LOST") { // Connection to the MySQL server is usually
-      handleDisconnect();                         // lost due to either server restart, or a
-    } else {                                      // connnection idle timeout (the wait_timeout
-      console.log(err)                                  // server variable configures this)
-    }
-  });
-}
-
-handleDisconnect();
+var pool = mysql.createPool({
+  host            : process.env.HOST,
+  user            : process.env.USERNAME,
+  password        : process.env.PASSWORD,
+  database        : process.env.DATABASE
+});
 
 // Export the data
-module.exports = connection;
+exports.pool = pool;
+
 
 // Pokemon Species Query
 app.get("/pokemonSpecies", (req, res) => {
-  connection.query("SELECT * FROM pokemon_species", function (err, result) {
-    if (err) res.status(400).json({Error: err});
-    res.send(result)
-  });
+    pool.query("SELECT * FROM pokemon_species", function(err, result) {
+      if (err) res.status(400).json({Error: err});
+      res.send(result)
+  
+      // conn.release();
+  })
 });
 
 // Pokemon Types query
 app.get("/pokemonTypes", (req, res) => {
-  connection.query("SELECT * FROM poke_types", function (err, result) {
+  pool.query("SELECT * FROM poke_types", function (err, result) {
     if (err) res.status(400).json({Error: err});
     res.send(result)
   });
@@ -75,7 +59,7 @@ app.get("/typeEffectiveness", express.json(), (req, res) => {
   var type1 = req.query.type1;
   var type2 = req.query.type2;
   var sql = `CALL calculate_weaknesses(${type1}, ${type2})`;
-  connection.query(sql, function (err, result) {
+  pool.query(sql, function (err, result) {
     if (err) res.status(400).json({Error: err});
     res.send(result)
   });
@@ -86,8 +70,8 @@ app.get("/indivPokemonTypes", express.json(), (req, res) => {
   // Call: http://localhost:3000/indivPokemonTypes?type=typeNameHere
   // Example: http://localhost:3000/indivPokemonTypes?type=bug
   var poke_name = String(req.query.name);
-  var sql = "SELECT * FROM indiv_pokemon_types WHERE poke_name = " + connection.escape(poke_name);
-  connection.query(sql, (err, result) => {
+  var sql = "SELECT * FROM indiv_pokemon_types WHERE poke_name = " + pool.escape(poke_name);
+  pool.query(sql, (err, result) => {
     if (err) {
       if (err) res.status(400).json({Error: err});
     }
@@ -101,7 +85,7 @@ app.get("/userToTeamID", express.json(), (req, res) => {
   // Example: http://localhost:3000/userToTeamID
   var userID = getId(req);
   var sql = `CALL user_to_team_ids(${userID})`;
-  connection.query(sql, function (err, result) {
+  pool.query(sql, function (err, result) {
     if (err) res.status(400).json({Error: err});
     res.send(result)
   });
@@ -113,7 +97,7 @@ app.get("/teamIDToPokemon", express.json(), (req, res) => {
   // Example: http://localhost:3000/teamIDToPokemon?teamID=1
   var teamID = req.query.teamID;
   var sql = `CALL team_id_to_pokemon(${teamID})`;
-  connection.query(sql, function (err, result) {
+  pool.query(sql, function (err, result) {
     if (err) res.status(400).json({Error: err});
     res.send(result)
   });
@@ -133,7 +117,7 @@ app.post("/savePokemonTeam", express.json(), (req, res) => {
   var poke5 = req.query.poke5;
   var poke6 = req.query.poke6;
 
-  connection.query("CALL add_team(?, ?, ?, ?, ?, ?, ?, ?, ?)", [teamName, teamDesc, memberID, poke1, poke2, poke3, poke4, poke5, poke6], function (err, result) {
+  pool.query("CALL add_team(?, ?, ?, ?, ?, ?, ?, ?, ?)", [teamName, teamDesc, memberID, poke1, poke2, poke3, poke4, poke5, poke6], function (err, result) {
     if (err) throw err;
     res.send(result)
   });
@@ -143,7 +127,7 @@ app.post("/savePokemonTeam", express.json(), (req, res) => {
 app.put("/deletePokemonTeam", express.json(), (req, res) => {
   var teamID = req.query.teamID;
 
-  connection.query("CALL delete_team(?)", [teamID], function (err, result) {
+  pool.query("CALL delete_team(?)", [teamID], function (err, result) {
     if (err) throw err;
     res.send(result)
   });
@@ -161,7 +145,7 @@ app.get("*", (req, res) => {
 app.post("/api/register", express.json(), (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
-  connection.query("CALL add_user(?, ?, FALSE)", [username, password], function (err, results) {
+  pool.query("CALL add_user(?, ?, FALSE)", [username, password], function (err, results) {
     if (err) res.status(400).json({Error: err});
     const result = results[0][0];
 
@@ -181,7 +165,7 @@ app.post("/api/register", express.json(), (req, res) => {
 app.post("/api/login", express.json(), (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
-  connection.query(`CALL sign_in(?,?)`, [username, password], (err, results) => {
+  pool.query(`CALL sign_in(?,?)`, [username, password], (err, results) => {
     if (err) {
       if (err) res.status(400).json({Error: err});
     }
@@ -203,7 +187,7 @@ app.post("/api/login", express.json(), (req, res) => {
 app.get("/api/my-profile", (req, res) => {
   if (validateToken) {
     const id = getId(req);
-    connection.query("SELECT username FROM member WHERE member_id=?", id, (err, results) => {
+    pool.query("SELECT username FROM member WHERE member_id=?", id, (err, results) => {
       if (err) res.status(400).json({Error: err});
       res.json({ username: results[0].username});
     });
@@ -215,7 +199,7 @@ app.put("/api/change-password", (req, res) => {
   if (validateToken) {
     const password = req.body.password;
     const id = getId(req);
-    connection.query("CALL change_password(?,?)", [id, password], (err, results) => {
+    pool.query("CALL change_password(?,?)", [id, password], (err, results) => {
       if (err) res.status(400).json({Error: err});
       const result = results[0][0];
       if (result.MESSAGE === 'Password has been changed.') {
@@ -231,7 +215,7 @@ app.put("/api/change-password", (req, res) => {
 app.delete("/api/delete-user", (req, res) => {
   if (validateToken) {
     const id = getId(req);
-    connection.query("CALL delete_user(?)", id, (err, results) => {
+    pool.query("CALL delete_user(?)", id, (err, results) => {
       if (err) res.status(400).json({Error: err});
       const result = results[0][0];
       if (result.MESSAGE === 'User has been deleted.') {
