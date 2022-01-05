@@ -1,5 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import './SingleTeamTypeChartStyle.css'
+
+let host = "";
+if (window.location.port) {
+  host = `http://${window.location.hostname}:${window.location.port}`
+} else {
+  host =`https://${window.location.hostname}`
+}
 
 /**
   * Async function call to backend API repsonsible for getting the type of a Pokemon.
@@ -8,7 +15,7 @@ import './SingleTeamTypeChartStyle.css'
 async function getType(poke_name) {
   // Can call for specific data using query
   // const response = await fetch('http://localhost:3000/indivPokemonTypes?name=' + poke_name);
-  const data = await fetch('http://localhost:3000/indivPokemonTypes?name=' + poke_name)
+  const data = await fetch(`${host}/indivPokemonTypes?name=${poke_name}`)
   .then(data => data.json())
   .then(out => [out])
   // Returns object [poke_name: String, poke_type: String]
@@ -48,11 +55,11 @@ async function getTypeParity(type1, type2) {
 
   // If type2 is null, then we calculate for one type only
   if (type2 == null) {
-    return await fetch(`http://localhost:3000/typeEffectiveness?type1="${type1}"&type2=null`)
+    return await fetch(`${host}/typeEffectiveness?type1="${type1}"&type2=null`)
     .then(data => data.json())
     .then(out => [out])
   } else {
-    return await fetch(`http://localhost:3000/typeEffectiveness?type1="${type1}"&type2="${type2}"`)
+    return await fetch(`${host}/typeEffectiveness?type1="${type1}"&type2="${type2}"`)
     .then(data => data.json())
     .then(out => [out])
   }
