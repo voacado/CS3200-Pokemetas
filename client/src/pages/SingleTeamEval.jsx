@@ -24,7 +24,13 @@ function SingleTeamEval(props) {
     const [pokemonSpecies, setPokemonSpecies] = useState([]);
     // 2. Create function to GET all the pokemonSpecies from server store to pokemonSpecies array.
     const getPokemonSpecies = async () => {
-        await axios.get("http://localhost:3000/pokemonSpecies").then((res) => {
+        let link = "";
+        if (window.location.port) {
+        link = `http://${window.location.hostname}:${window.location.port}/pokemonSpecies`
+        } else {
+        link = `https://${window.location.hostname}/pokemonSpecies`
+        }
+        await axios.get(link).then((res) => {
             setPokemonSpecies(res.data);
         });
     };
