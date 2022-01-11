@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import SearchBar from '../search_bar/SearchBar';
 import SingleTeamTypeChart from '../single_team_type_chart/SingleTeamTypeChart';
-import LoginBox from '../form/LoginBox';
 import axios from 'axios';
 
 
@@ -96,7 +95,13 @@ function PokeList({ data, dataMap, state, propToken }) {
           'poke5': poke5, 
           'poke6': poke6
         }
-        await axios.post('http://localhost:3000/savePokemonTeam', null, { params: saveData }).then(response => response.status);
+        let link = "";
+        if (window.location.port) {
+          link = `http://${window.location.hostname}:${window.location.port}/savePokemonTeam`
+        } else {
+          link =`https://${window.location.hostname}/savePokemonTeam`
+        }
+        await axios.post(link, null, { params: saveData }).then(response => response.status);
       }
       saveTeam()
     }

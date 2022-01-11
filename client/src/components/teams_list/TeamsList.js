@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import axios from "axios";
+let host = "";
+if (window.location.port) {
+  host = `http://${window.location.hostname}:${window.location.port}`
+} else {
+  host =`https://${window.location.hostname}`
+}
 
 /**
  * Generates a list of teams that correspond to a user, and a list of actions they may perform on a team.
@@ -8,7 +14,7 @@ import axios from "axios";
 function TeamsList() {
   // Query for list of Pokemon teams a user
   const getTeamIDs = async () => {
-    const res = await axios.get("http://localhost:3000/userToTeamID");
+    const res = await axios.get(`${host}/userToTeamID`);
     return res;
   };
 
@@ -22,7 +28,7 @@ function TeamsList() {
 
     // For each team a user has, get the data
     for (var i = 0; i < teamIDs.length; i++) {
-      var query = `http://localhost:3000/teamIDToPokemon?teamID=${teamIDs[i].team_id}`
+      var query = `${host}/teamIDToPokemon?teamID=${teamIDs[i].team_id}`
       await axios.get(query).then((res) => {
         data.push(res.data);
       });
@@ -53,7 +59,7 @@ function TeamsList() {
 
       // Asychronous method that calls POST to delete
       const deleteTeam = async () => {
-        await axios.put(`http://localhost:3000/deletePokemonTeam?teamID=${teamDelNumber}`).then(response => response.status);
+        await axios.put(`${host}/deletePokemonTeam?teamID=${teamDelNumber}`).then(response => response.status);
       }
       deleteTeam()
     }
