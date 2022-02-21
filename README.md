@@ -16,5 +16,5 @@ In the root directory, run "npm run dev". This should start a server listening o
 After the backend server is running, open a new terminal instance and change directories to "/client". In here, run "npm start". This should open a localhost instance of the site on port 3000 (http://localhost:3000/). From here, the site should be accessible.
 
 ## Credit
-Anthony Vo - https://github.com/AntVo2448
+Anthony Vo - https://github.com/AntVo2448 <br />
 Rixuan Zheng - https://github.com/rixuanzheng
