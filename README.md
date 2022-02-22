@@ -1,5 +1,5 @@
 # Pokemetas
-The website is located at https://cs3200-pokemetas.herokuapp.com. This website was originally created for the final project of our Database Design class at Northeastern University. We plan to add more to the website, thus the site is still a WIP.
+The website is located at https://cs3200-pokemetas.herokuapp.com. This website was originally created for the final project of our Database Design class at Northeastern University. Cokkies are required for full functionality of this website. We plan to add more to the website, thus the site is still a WIP.
 
 ## Description
 This website's main purpose allows a user to input a team of Pokemon and the application will evaluate the team to determine all the strengths and weaknesses of each Pokemon to every type matchup. There is also the ability to create an account to allow for the saving of teams for future reference.
